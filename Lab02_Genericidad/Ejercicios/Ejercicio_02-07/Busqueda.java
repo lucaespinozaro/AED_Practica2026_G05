@@ -1,9 +1,9 @@
-public class Busqueda<T> {
+public class Rastreo<T> {
     private String color;
     private int posicion;
     private T objeto;
 
-    public Busqueda(String color, int posicion, T objeto) {
+    public Rastreo(String color, int posicion, T objeto) {
         this.color = color;
         this.posicion = posicion;
         this.objeto = objeto;
