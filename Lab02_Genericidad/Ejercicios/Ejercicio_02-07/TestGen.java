@@ -23,7 +23,7 @@ public class TestGen {
         cajoneria.add(c4);
         cajoneria.add(c5);
 
-        Busqueda<Golosina> b = cajoneria.search(new Golosina("Gomitas", 40));
+        Rastreo<Golosina> b = cajoneria.search(new Golosina("Gomitas", 40));
         if (b != null) {
             System.out.println(b.getPosicion() + " - " + b.getColor() + " - " + b.getObjeto());
         }
