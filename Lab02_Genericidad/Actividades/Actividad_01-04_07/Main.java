@@ -1,6 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-
         Bolsa<Chocolatina> bolsaChoco = new Bolsa<>(3);
         bolsaChoco.add(new Chocolatina("Milka"));
         bolsaChoco.add(new Chocolatina("Ferrero"));
