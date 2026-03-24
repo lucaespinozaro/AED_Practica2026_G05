@@ -1,5 +1,4 @@
 public class DemoContenedor {
-
     public static <T extends Comparable<T>> boolean igualArrays(T[] x, T[] y) {
         if (x == null || y == null) return false;
         
@@ -17,7 +16,6 @@ public class DemoContenedor {
     }
 
     public static void main(String[] args) {
-
         Integer[] nums = {1, 2, 3, 4, 5};
         Integer[] nums2 = {1, 2, 3, 4, 5};
         Integer[] nums3 = {1, 2, 7, 4, 5};
