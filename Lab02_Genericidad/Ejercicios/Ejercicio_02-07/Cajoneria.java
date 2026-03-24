@@ -17,7 +17,7 @@ public class Cajoneria<T> {
         }
     }
 
-    public Busqueda<T> search(T objeto) {
+    public Rastreo<T> search(T objeto) {
         for (int i = 0; i < lista.size(); i++) {
             Caja<T> caja = lista.get(i);
             if (caja.getObjeto() != null && caja.getObjeto().equals(objeto)) {
