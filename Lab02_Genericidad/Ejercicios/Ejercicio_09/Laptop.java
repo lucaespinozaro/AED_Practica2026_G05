@@ -39,7 +39,6 @@ public class Laptop implements Cargable {
         this.consumoVatios = consumoVatios;
     }
 
-    // equals compara por marca y consumo
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
