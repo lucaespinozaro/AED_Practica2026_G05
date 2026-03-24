@@ -21,10 +21,7 @@ public class Main
       throw new IllegalArgumentException("El arreglo no existe");
     }
     if (i < 0 || i >= arr.length || j < 0 || j >= arr.length) {
-      throw new IllegalArgumentException(
-                                         "Índices fuera de rango: i=" + i + ", j=" + j +
-                                         ", longitud=" + arr.length
-                                         );
+      throw new IllegalArgumentException("Índices fuera de rango: i=" + i + ", j=" + j + ", longitud=" + arr.length);
     }
     
     T temp = arr[i];
