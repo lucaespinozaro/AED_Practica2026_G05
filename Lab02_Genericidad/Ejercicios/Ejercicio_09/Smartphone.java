@@ -44,7 +44,7 @@ public class Smartphone implements Cargable {
         if (this == obj) return true;
         if (!(obj instanceof Smartphone)) return false;
         Smartphone otro = (Smartphone) obj;
-        return this.modelo.equals(otro.modelo) && this.consumoVatios == otro.consumoVatios;
+        return this.modelo.equals(otro.modelo) && Double.compare(consumoVatios, otro.consumoVarios) == 0;
     }
 
     @Override
