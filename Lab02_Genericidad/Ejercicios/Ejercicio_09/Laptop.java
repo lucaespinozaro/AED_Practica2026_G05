@@ -44,7 +44,7 @@ public class Laptop implements Cargable {
         if (this == obj) return true;
         if (!(obj instanceof Laptop)) return false;
         Laptop otro = (Laptop) obj;
-        return this.marca.equals(otro.marca) && this.consumoVatios == otro.consumoVatios;
+        return this.marca.equals(otro.marca) && Double.compare(consumoVatios, otro.consumoVarios) == 0;
     }
 
     @Override
