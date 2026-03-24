@@ -20,12 +20,17 @@ public class Main
     if (arr == null) {
       throw new IllegalArgumentException("El arreglo no existe");
     }
+
     if (i < 0 || i >= arr.length || j < 0 || j >= arr.length) {
       throw new IllegalArgumentException("Índices fuera de rango: i=" + i + ", j=" + j + ", longitud=" + arr.length);
     }
-    
+
+    if (i == j) {
+      return;
+    }
+
     T temp = arr[i];
-    arr[i]  = arr[j];
-    arr[j]  = temp;
+    arr[i] = arr[j];
+    arr[j] = temp;
   }
 }
