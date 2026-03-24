@@ -13,6 +13,18 @@ public class Main
     System.out.println("Antes : " + Arrays.toString(numeros));
     intercambio(numeros, 0, 2);
     System.out.println("Después (i=0, j=2): " + Arrays.toString(numeros));
+
+    Chocolatina[] choco = 
+    {
+      new Chocolatina ("hola"),
+      new Chocolatina ("como"),
+      new Chocolatina ("estas")
+    };
+
+    System.out.println("Antes : " + Arrays.toString(choco));
+    intercambio(choco, 1, 2);
+    System.out.println("Después (i=0, j=2): " + Arrays.toString(choco));
+       
   }
 
   public static <T> void intercambio(T[] arr, int i, int j)
