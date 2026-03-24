@@ -21,7 +21,7 @@ public class Cajoneria<T> {
         for (int i = 0; i < lista.size(); i++) {
             Caja<T> caja = lista.get(i);
             if (caja.getObjeto() != null && caja.getObjeto().equals(objeto)) {
-                return new Busqueda<>(caja.getColor(), i, caja.getObjeto());
+                return new Rastreo<>(caja.getColor(), i, caja.getObjeto());
             }
         }
         return null;
