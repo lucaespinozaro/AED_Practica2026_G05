@@ -1,6 +1,8 @@
 public class DemoContenedor {
 
     public static <T extends Comparable<T>> boolean igualArrays(T[] x, T[] y) {
+        if (x == null || y == null) return false;
+        
         if (x.length != y.length) {
             return false;
         }
