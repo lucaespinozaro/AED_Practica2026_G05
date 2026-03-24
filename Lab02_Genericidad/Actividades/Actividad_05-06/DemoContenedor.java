@@ -30,14 +30,9 @@ public class DemoContenedor {
         if (igualArrays(nums, nums4))
             System.out.println("nums es igual a nums4");
 
-        Double[] dvals = {1.1, 2.2, 3.3, 4.4, 5.5};
-
-        if (igualArrays(nums, dvals))
-            System.out.println("nums es igual a dvals");
-
-        //Crea un array de double                           //A
-        //Double dvals[]={1.1,2.2,3.3,4.4,5.5};             //B
-        //if(igualArrays(num,dvals))                        //C
-        //  System.out.println("nums es igual a dvals");    //D
+        //Crea un array de double                           //A - Descripcion
+        //Double dvals[]={1.1,2.2,3.3,4.4,5.5};             //B - Crea Arreglo Double
+        //if(igualArrays(num,dvals))                        //C - Compara Integer con Double
+        //  System.out.println("nums es igual a dvals");    //D - Imprime si es True
     }
 }
