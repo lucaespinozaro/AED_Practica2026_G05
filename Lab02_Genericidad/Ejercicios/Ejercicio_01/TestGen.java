@@ -14,6 +14,7 @@ public class TestGen {
 
         System.out.println(exist(v, "Sanchez"));
         System.out.println(exist(w, 34));
+        //System.out.println(exist(w, "Salas"));    //Error intencional
 
         Golosina[] g = {new Golosina("Gomitas", 40), new Golosina("Caramelo", 15)};
         Chocolatina[] c = {new Chocolatina("Sublime"), new Chocolatina("Ferrero")};
