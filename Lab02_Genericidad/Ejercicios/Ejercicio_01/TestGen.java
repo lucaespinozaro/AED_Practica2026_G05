@@ -15,17 +15,10 @@ public class TestGen {
         System.out.println(exist(v, "Sanchez"));
         System.out.println(exist(w, 34));
 
-        Golosina[] g = {
-            new Golosina("Gomitas", 50),
-            new Golosina("Caramelo", 20)
-        };
+        Golosina[] g = {new Golosina("Gomitas", 40), new Golosina("Caramelo", 15)};
+        Chocolatina[] c = {new Chocolatina("Sublime"), new Chocolatina("Ferrero")};
 
-        Chocolatina[] c = {
-            new Chocolatina("Milka"),
-            new Chocolatina("Ferrero")
-        };
-
-        System.out.println(exist(g, new Golosina("Gomitas", 50)));
-        System.out.println(exist(c, new Chocolatina("Milka")));
+        System.out.println(exist(g, new Golosina("Gomitas", 40)));
+        System.out.println(exist(c, new Chocolatina("Sublime")));
     }
 }
