@@ -4,9 +4,9 @@ public class TestEstacion {
         System.out.println(" Zona de smartphones ");
         PowerStation<Smartphone> zonaSmartphones = new PowerStation<Smartphone>();
 
-        Smartphone s1 = new Smartphone("Galaxy S22", 25.0);
-        Smartphone s2 = new Smartphone("iPhone 14", 20.5);
-        Smartphone s3 = new Smartphone("Xiaomi 12", 18.0);
+        Smartphone s1 = new Smartphone("iPhone 15", 20.5);
+        Smartphone s2 = new Smartphone("Galaxy S24", 25.0);
+        Smartphone s3 = new Smartphone("Xiaomi 13", 18.0);
 
         zonaSmartphones.conectar(s1);
         zonaSmartphones.conectar(s2);
@@ -17,15 +17,15 @@ public class TestEstacion {
 
         zonaSmartphones.mostrarReporte();
 
-        Smartphone buscar1 = new Smartphone("Galaxy S22", 25.0);
+        Smartphone buscar1 = new Smartphone("Galaxy S24", 25.0);
         int pos = zonaSmartphones.buscarDispositivo(buscar1);
         if (pos != -1) {
-            System.out.println("\nGalaxy S22 encontrado en posicion: " + pos);
+            System.out.println("\nGalaxy S24 encontrado en posicion: " + pos);
         } else {
-            System.out.println("\nGalaxy S22 no encontrado.");
+            System.out.println("\nGalaxy S24 no encontrado.");
         }
 
-        Smartphone buscar2 = new Smartphone("Motorola G73", 15.0);
+        Smartphone buscar2 = new Smartphone("Motorola G84", 15.0);
         int pos2 = zonaSmartphones.buscarDispositivo(buscar2);
         if (pos2 != -1) {
             System.out.println("Motorola G84 encontrado en posicion: " + pos2);
@@ -36,10 +36,10 @@ public class TestEstacion {
         System.out.println("\n Zona de laptops ");
         PowerStation<Laptop> zonaLaptops = new PowerStation<Laptop>();
 
-        Laptop l1 = new Laptop("Lenovo ThinkPad", 45.0);
-        Laptop l2 = new Laptop("Dell XPS", 65.0);
-        Laptop l3 = new Laptop("MacBook Pro", 70.0);
-        
+        Laptop l1 = new Laptop("Dell XPS", 65.0);
+        Laptop l2 = new Laptop("MacBook Pro", 70.0);
+        Laptop l3 = new Laptop("Lenovo ThinkPad", 45.0);
+
         zonaLaptops.conectar(l1);
         zonaLaptops.conectar(l2);
         zonaLaptops.conectar(l3);
