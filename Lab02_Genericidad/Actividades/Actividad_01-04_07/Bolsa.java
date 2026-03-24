@@ -11,6 +11,9 @@ public class Bolsa<T> implements Iterable<T> {
     }
 
     public void add(T objeto) {
+        if (objeto == null) {
+            throw new IllegalArgumentException("No se permiten null");
+        }
         if (lista.size() < tope) {
             lista.add(objeto);
         } else {
