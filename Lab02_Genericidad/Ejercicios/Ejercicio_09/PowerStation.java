@@ -30,7 +30,7 @@ public class PowerStation<T extends Cargable> {
     }
 
     public void mostrarReporte() {
-        System.out.println("\n--- REPORTE DE ESTACION DE CARGA ---");
+        System.out.println("\n--- Reporte de Estación de Carga ---");
         System.out.printf("%-10s %-15s %-10s%n", "Posicion", "Consumo (W)", "Dispositivo");
         System.out.println("----------------------------------------------------");
         for (int i = 0; i < dispositivos.size(); i++) {
