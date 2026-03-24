@@ -46,20 +46,17 @@ public class Cajoneria<T> {
         return contador;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        int i = 1;
+        sb.append(String.format("%-10s %-15s %-20s%n", "Posición", "Color Caja", "Objeto"));
+        sb.append("----------------------------------------------------------\n");
 
+        int i = 1;
         for (Caja<T> caja : lista) {
-            sb.append(i)
-              .append(" ")
-              .append(caja.getColor())
-              .append(" ")
-              .append(caja.getObjeto())
-              .append("\n");
+            sb.append(String.format("%-10d %-15s %-20s%n", i, caja.getColor(), caja.getObjeto()));
             i++;
         }
-
         return sb.toString();
     }
 }
