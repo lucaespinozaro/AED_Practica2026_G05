@@ -1,5 +1,4 @@
 public class TestGen {
-
     public static <T> boolean exist(T[] arreglo, T elemento) {
         for (T item : arreglo) {
             if (item.equals(elemento)) {
@@ -10,7 +9,6 @@ public class TestGen {
     }
 
     public static void main(String[] args) {
-
         String[] v = {"Perez", "Sanchez", "Rodriguez"};
         Integer[] w = {12, 34, 56};
 
