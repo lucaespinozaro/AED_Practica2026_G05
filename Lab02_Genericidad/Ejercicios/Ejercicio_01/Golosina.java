@@ -20,6 +20,6 @@ public class Golosina {
         if (this == obj) return true;
         if (!(obj instanceof Golosina)) return false;
         Golosina g = (Golosina) obj;
-        return nombre.equals(g.nombre) && peso == g.peso;
+        return nombre.equals(g.nombre) && Double.compare(peso, g.peso) == 0;
     }
 }
