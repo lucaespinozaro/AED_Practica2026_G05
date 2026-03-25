@@ -19,7 +19,6 @@ public class Chocolatina implements Comparable<Chocolatina> {
         if (marca == null || c.marca == null) {
             return marca == c.marca;
         }
-
         return marca.equals(c.marca);
     }
 
