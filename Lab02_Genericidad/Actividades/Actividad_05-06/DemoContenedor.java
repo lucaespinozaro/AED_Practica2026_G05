@@ -7,7 +7,11 @@ public class DemoContenedor {
         }
 
         for (int i = 0; i < x.length; i++) {
-            if (!x[i].equals(y[i])) {
+            if (x[i] == null || y[i] == null) {
+                if (x[i] != y[i]) {
+                    return false;
+                }
+            } else if (!x[i].equals(y[i])) {
                 return false;
             }
         }
