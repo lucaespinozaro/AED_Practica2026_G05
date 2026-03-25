@@ -1,6 +1,5 @@
 public class TestEstacion {
     public static void main(String[] args) {
-
         System.out.println(" Zona de smartphones ");
         PowerStation<Smartphone> zonaSmartphones = new PowerStation<Smartphone>();
 
