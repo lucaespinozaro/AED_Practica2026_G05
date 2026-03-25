@@ -1,7 +1,11 @@
 public class TestGen {
-    public static <T> boolean exist(T[] arreglo, T elemento) {
+    public static <T extends Comparable<T>> boolean exist(T[] arreglo, T elemento) {
         for (T item : arreglo) {
-            if (item.equals(elemento)) {
+            if (item == null || elemento == null) {
+                if (item == elemento) {
+                    return true;
+                }
+            } else if (item.equals(elemento)) {
                 return true;
             }
         }
