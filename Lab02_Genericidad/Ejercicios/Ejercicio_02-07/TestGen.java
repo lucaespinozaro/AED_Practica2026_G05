@@ -14,7 +14,6 @@ public class TestGen {
 
     public static void main(String[] args) {
         Cajoneria<Golosina> cajoneria = new Cajoneria<>(6);
-
         Caja<Golosina> c1 = new Caja<>("Rojo", new Golosina("Gomitas", 40));
         Caja<Golosina> c2 = new Caja<>("Amarillo", new Golosina("Caramelo", 10));
         Caja<Golosina> c3 = new Caja<>("Verde", new Golosina("Chocolate", 20));
