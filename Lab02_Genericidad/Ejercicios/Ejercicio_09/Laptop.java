@@ -41,7 +41,7 @@ public class Laptop implements Cargable, Comparable<Laptop> {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) return false; // 🔧 CORRECCIÓN
+        if (obj == null) return false; 
         if (this == obj) return true;
         if (!(obj instanceof Laptop)) return false;
         Laptop otro = (Laptop) obj;
