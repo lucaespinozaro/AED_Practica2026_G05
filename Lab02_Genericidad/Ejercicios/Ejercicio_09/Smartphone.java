@@ -1,4 +1,4 @@
-public class Smartphone implements Cargable {
+public class Smartphone implements Cargable, Comparable<Smartphone> {
     private String modelo;
     private double consumoVatios;
     private int nivelBateria;
@@ -41,10 +41,29 @@ public class Smartphone implements Cargable {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == null) return false; 
         if (this == obj) return true;
         if (!(obj instanceof Smartphone)) return false;
         Smartphone otro = (Smartphone) obj;
-        return this.modelo.equals(otro.modelo) && Double.compare(consumoVatios, otro.consumoVarios) == 0;
+
+        if (this.modelo == null || otro.modelo == null) {
+            if (this.modelo != otro.modelo) return false;
+        } else if (!this.modelo.equals(otro.modelo)) {
+            return false;
+        }
+        return Double.compare(consumoVatios, otro.consumoVatios) == 0;
+    }
+
+    @Override
+    public int compareTo(Smartphone o) {
+        if (o == null) return 1;
+        if (this.modelo == null && o.modelo == null) return 0;
+        if (this.modelo == null) return -1;
+        if (o.modelo == null) return 1;
+
+        int cmp = this.modelo.compareTo(o.modelo);
+        if (cmp != 0) return cmp;
+        return Double.compare(this.consumoVatios, o.consumoVatios);
     }
 
     @Override
