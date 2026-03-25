@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Cajoneria<T> {
+public class Cajoneria<T extends Comparable<T>> { 
     private ArrayList<Caja<T>> lista;
     private int tope;
 
@@ -20,7 +20,11 @@ public class Cajoneria<T> {
     public Rastreo<T> search(T objeto) {
         for (int i = 0; i < lista.size(); i++) {
             Caja<T> caja = lista.get(i);
-            if (caja.getObjeto() != null && caja.getObjeto().equals(objeto)) {
+            if (caja.getObjeto() == null || objeto == null) {
+                if (caja.getObjeto() == objeto) {
+                    return new Rastreo<>(caja.getColor(), i, caja.getObjeto());
+                }
+            } else if (caja.getObjeto().equals(objeto)) {
                 return new Rastreo<>(caja.getColor(), i, caja.getObjeto());
             }
         }
@@ -29,7 +33,11 @@ public class Cajoneria<T> {
 
     public T delete(T objeto) {
         for (Caja<T> caja : lista) {
-            if (caja.getObjeto() != null && caja.getObjeto().equals(objeto)) {
+            if (caja.getObjeto() == null || objeto == null) {
+                if (caja.getObjeto() == objeto) {
+                    return caja.delete();
+                }
+            } else if (caja.getObjeto().equals(objeto)) {
                 return caja.delete();
             }
         }
@@ -39,7 +47,11 @@ public class Cajoneria<T> {
     public int contar(T elemento) {
         int contador = 0;
         for (Caja<T> caja : lista) {
-            if (caja.getObjeto() != null && caja.getObjeto().equals(elemento)) {
+            if (caja.getObjeto() == null || elemento == null) {
+                if (caja.getObjeto() == elemento) {
+                    contador++;
+                }
+            } else if (caja.getObjeto().equals(elemento)) {
                 contador++;
             }
         }
