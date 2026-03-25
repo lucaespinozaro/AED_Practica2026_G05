@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
-public class PowerStation<T extends Cargable> {
+public class PowerStation<T extends Cargable & Comparable<T>> { 
     private ArrayList<T> dispositivos;
-
     public PowerStation() {
         dispositivos = new ArrayList<T>();
     }
@@ -22,8 +21,13 @@ public class PowerStation<T extends Cargable> {
 
     public int buscarDispositivo(T prototipo) {
         for (int i = 0; i < dispositivos.size(); i++) {
-            if (dispositivos.get(i).equals(prototipo)) {
-                return i + 1; 
+            T actual = dispositivos.get(i);
+            if (actual == null || prototipo == null) {
+                if (actual == prototipo) {
+                    return i + 1;
+                }
+            } else if (actual.equals(prototipo)) {
+                return i + 1;
             }
         }
         return -1;
