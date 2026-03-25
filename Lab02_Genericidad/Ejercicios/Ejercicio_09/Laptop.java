@@ -51,7 +51,7 @@ public class Laptop implements Cargable, Comparable<Laptop> {
         } else if (!this.marca.equals(otro.marca)) {
             return false;
         }
-        return Double.compare(consumoVatios, otro.consumoVatios) == 0; // 🔧 CORRECCIÓN nombre
+        return Double.compare(consumoVatios, otro.consumoVatios) == 0; 
     }
 
     @Override
