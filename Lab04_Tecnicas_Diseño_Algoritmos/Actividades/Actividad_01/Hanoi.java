@@ -1,4 +1,4 @@
-package Actividades;
+package Actividad_01;
 public class Hanoi {
 
     public static void main(String[] args) {
