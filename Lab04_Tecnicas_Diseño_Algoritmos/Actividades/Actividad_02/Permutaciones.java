@@ -1,4 +1,4 @@
-package Actividades;
+package Actividad_02;
 import java.util.*;
 
 public class Permutaciones {
