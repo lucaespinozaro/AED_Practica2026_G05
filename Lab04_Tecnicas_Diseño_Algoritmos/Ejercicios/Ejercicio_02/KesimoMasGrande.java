@@ -1,4 +1,4 @@
-package Actividades;
+package Ejercicio_02;
 import java.util.*;
 
 public class KesimoMasGrande {
