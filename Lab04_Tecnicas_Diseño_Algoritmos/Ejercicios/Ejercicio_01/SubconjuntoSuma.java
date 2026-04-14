@@ -1,4 +1,4 @@
-package Actividades;
+package Ejercicio_01;
 
 import java.util.*;
 
