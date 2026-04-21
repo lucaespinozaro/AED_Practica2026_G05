@@ -11,7 +11,7 @@ public class DpSolution {
                                   values[j] + subSolutions[i - j - 1]);
             }
             subSolutions[i] = tmpMax; 
- 
+        }
         return subSolutions[rodLength];
     }
  
