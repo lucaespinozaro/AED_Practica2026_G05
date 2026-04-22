@@ -9,6 +9,10 @@ public class Hanoi {
     }
 
     public static void torresHanoi(int discos, int origen, int auxiliar, int destino) {
+        if (discos <= 0) {
+            throw new IllegalArgumentException("El número de discos debe ser mayor que 0");
+        }
+
         if (discos == 1) {
             System.out.println("Mover disco 1 de Torre " + origen + " a Torre " + destino);
         } else {
