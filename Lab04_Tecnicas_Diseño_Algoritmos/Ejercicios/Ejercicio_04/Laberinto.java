@@ -4,6 +4,9 @@ public class Laberinto {
     static int[] colDir   = { 0,  1,  0, -1};
  
     public static boolean resolverLaberinto(int[][] maze) {
+        if (maze == null)
+            throw new IllegalArgumentException("El laberinto no puede ser null");
+        
         int n = maze.length;
         int[][] solucion = new int[n][n];
  
@@ -67,7 +70,6 @@ public class Laberinto {
     }
  
     public static void main(String[] args) {
- 
         // Ejemplo 1 — debería dar true
         int[][] maze1 = {
             {0, 0, 1},
