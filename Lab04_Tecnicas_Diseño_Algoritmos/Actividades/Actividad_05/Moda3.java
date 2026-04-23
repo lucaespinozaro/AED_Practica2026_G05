@@ -15,7 +15,6 @@ public class Moda3 {
         // Seguimos dividiendo mientras el trozo heterogéneo más largo
         // sea mayor que el trozo homogéneo más largo
         while (heterogeneo.longMayor() > homogeneo.longMayor()) {
-     
             Limits p = heterogeneo.mayor();
             if (p == null) break;
      
