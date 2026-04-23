@@ -5,13 +5,16 @@ import java.util.*;
 public class SubconjuntoSuma {
 
     public static boolean esBloqueadoPorPar(int[] arr, int i) {
-        if (i > 0 && arr[i] % 2 == 0 && arr[i - 1] % 2 == 0) {
-            return true;
-        }
-        return false;
+        return (i > 0 && arr[i] % 2 == 0 && arr[i - 1] % 2 == 0);
     }
 
     public static boolean resolver(int[] arr, int i, int sumaActual, int objetivo) {
+        if (arr == null)
+            throw new IllegalArgumentException("El arreglo no puede ser null");
+
+        if (i < 0 || i > arr.length)
+            throw new IllegalArgumentException("Índice inválido");
+
         if (i == arr.length) {
             return sumaActual == objetivo;
         }
