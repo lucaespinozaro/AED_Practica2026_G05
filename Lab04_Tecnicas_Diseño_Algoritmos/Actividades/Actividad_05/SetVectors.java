@@ -2,7 +2,6 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
  
 public class SetVectors {
- 
     // Cola de prioridad: el subarreglo mas largo sale primero
     private PriorityQueue<Limits> pq;
  
@@ -13,6 +12,8 @@ public class SetVectors {
     }
  
     public void insertar(Limits l) {
+        if (l == null)
+            throw new IllegalArgumentException("No se puede insertar null");
         pq.add(l);
     }
  
