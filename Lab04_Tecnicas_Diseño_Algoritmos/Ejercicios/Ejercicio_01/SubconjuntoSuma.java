@@ -3,7 +3,6 @@ package Ejercicio_01;
 import java.util.*;
 
 public class SubconjuntoSuma {
-
     public static boolean esBloqueadoPorPar(int[] arr, int i) {
         return (i > 0 && arr[i] % 2 == 0 && arr[i - 1] % 2 == 0);
     }
