@@ -2,7 +2,6 @@ package Ejercicio_02;
 import java.util.*;
 
 public class KesimoMasGrande {
-
     public static int particionar(int[] arr, int inicio, int fin) {
         int pivote = arr[fin];
         int i = inicio;
@@ -24,12 +23,20 @@ public class KesimoMasGrande {
     }
 
     public static int quickSelect(int[] arr, int inicio, int fin, int k) {
+        if (arr == null)
+            throw new IllegalArgumentException("El arreglo no puede ser null");
+
+        if (inicio < 0 || fin >= arr.length || inicio > fin)
+            throw new IllegalArgumentException("Índices inválidos");
+
+        if (k < 1 || k > (fin - inicio + 1))
+            throw new IllegalArgumentException("k fuera de rango");
+
         if (inicio == fin) {
             return arr[inicio];
         }
 
         int posPivote = particionar(arr, inicio, fin);
-
         int posicion = posPivote - inicio + 1;
 
         if (posicion == k) {
