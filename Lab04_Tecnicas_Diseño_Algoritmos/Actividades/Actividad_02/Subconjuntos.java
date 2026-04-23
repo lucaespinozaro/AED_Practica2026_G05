@@ -2,8 +2,15 @@ package Actividad_02;
 import java.util.*;
 
 public class Subconjuntos {
-
     public static void generarSubconjuntos(int[] arr, List<Integer> actual, int i) {
+        if (arr == null || actual == null) {
+            throw new IllegalArgumentException("Los parámetros no pueden ser null");
+        }
+
+        if (i < 0 || i > arr.length) {
+            throw new IllegalArgumentException("Índice fuera de rango");
+        }
+
         if (i == arr.length) {
             System.out.println(actual);
             return;
