@@ -28,10 +28,7 @@ public class KesimoMasGrande {
 
         if (inicio < 0 || fin >= arr.length || inicio > fin)
             throw new IllegalArgumentException("Índices inválidos");
-
-        if (k < 1 || k > (fin - inicio + 1))
-            throw new IllegalArgumentException("k fuera de rango");
-
+        
         if (inicio == fin) {
             return arr[inicio];
         }
