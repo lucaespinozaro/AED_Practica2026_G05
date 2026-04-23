@@ -20,9 +20,7 @@ public class Laberinto {
         }
     }
  
-    private static boolean resolver(int[][] maze, int fila, int col,
-                                    int[][] solucion, int n) {
- 
+    private static boolean resolver(int[][] maze, int fila, int col, int[][] solucion, int n) {
         // Caso base: llegamos a la esquina inferior derecha
         if (fila == n - 1 && col == n - 1) {
             solucion[fila][col] = 1;
@@ -50,8 +48,7 @@ public class Laberinto {
         return false;
     }
  
-    private static boolean esValida(int[][] maze, int fila, int col,
-                                    int[][] solucion, int n) {
+    private static boolean esValida(int[][] maze, int fila, int col, int[][] solucion, int n) {
         // La celda debe estar dentro del laberinto,
         // ser camino libre (0) y no haber sido visitada antes
         return fila >= 0 && fila < n
