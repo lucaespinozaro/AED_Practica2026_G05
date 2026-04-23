@@ -16,6 +16,9 @@ public class MergeSort {
         if (v == null || aux == null)
             throw new IllegalArgumentException("Arreglos no pueden ser null");
 
+        if (v.length != aux.length)
+            throw new IllegalArgumentException("Los arreglos deben tener el mismo tamaño");
+
         if (ini < 0 || fin >= v.length || ini > fin)
             throw new IllegalArgumentException("Índices fuera de rango");
 
@@ -35,8 +38,11 @@ public class MergeSort {
     }
 
     static void juntar(int[] v, int[] aux, int ini, int c, int fin, int n) {
-        if (v == null || aux == null)
-            throw new IllegalArgumentException("Arreglos no pueden ser null");
+        if (v.length != aux.length)
+            throw new IllegalArgumentException("Los arreglos deben tener el mismo tamaño");
+
+        if (ini < 0 || fin >= v.length || ini > fin || c < ini || c >= fin)
+            throw new IllegalArgumentException("Índices inválidos");
 
         for (int i = 0; i < n; i++) System.out.print("   ");
         System.out.print("Mezclando: ");
@@ -83,6 +89,8 @@ public class MergeSort {
             }
             v[i] = sc.nextInt();
         }
+
+        sc.close();
 
         int[] aux = new int[n];
 
