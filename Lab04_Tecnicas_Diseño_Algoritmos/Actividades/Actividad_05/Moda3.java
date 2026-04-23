@@ -1,5 +1,11 @@
 public class Moda3 {
     public static int moda3(int[] array, int prim, int ult) {
+        if (array == null)
+            throw new IllegalArgumentException("Array no puede ser null");
+
+        if (prim < 0 || ult >= array.length || prim > ult)
+            throw new IllegalArgumentException("Índices inválidos");
+        
         SetVectors homogeneo   = new SetVectors();
         SetVectors heterogeneo = new SetVectors();
      
@@ -11,6 +17,7 @@ public class Moda3 {
         while (heterogeneo.longMayor() > homogeneo.longMayor()) {
      
             Limits p = heterogeneo.mayor();
+            if (p == null) break;
      
             int mediana = p.array[(p.first + p.last) / 2];
      
