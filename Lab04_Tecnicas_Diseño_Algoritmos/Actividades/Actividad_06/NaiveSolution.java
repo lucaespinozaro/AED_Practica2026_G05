@@ -12,8 +12,7 @@ public class NaiveSolution {
         int tmpMax = Integer.MIN_VALUE;
         for (int i = 0; i < length; i++) {
             // Probamos cortar un trozo de tamaño (i+1) y resolver el resto
-            tmpMax = Math.max(tmpMax,
-                              values[i] + getValue(values, length - i - 1));
+            tmpMax = Math.max(tmpMax, values[i] + getValue(values, length - i - 1));
         }
         return tmpMax;
     }
