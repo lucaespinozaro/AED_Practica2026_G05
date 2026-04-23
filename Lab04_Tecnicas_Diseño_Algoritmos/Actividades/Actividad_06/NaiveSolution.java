@@ -19,8 +19,8 @@ public class NaiveSolution {
     }
  
     public static void main(String[] args) {
-        int[] values   = {3, 7, 1, 3, 9};
-        int rodLength  = values.length;
+        int[] values = {3, 7, 1, 3, 9};
+        int rodLength = values.length;
         System.out.println("El valor maximo: " + getValue(values, rodLength));
         // Salida: El valor maximo: 17
     }
