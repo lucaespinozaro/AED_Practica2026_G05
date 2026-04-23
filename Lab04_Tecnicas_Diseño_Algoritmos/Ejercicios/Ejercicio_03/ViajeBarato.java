@@ -38,8 +38,10 @@ public class ViajeBarato {
         if (P == null || r == null)
             throw new IllegalArgumentException("Parametros no pueden ser null");
 
-        if (i < 0 || j >= P.length || i >= j)
+        if (i < 0 || j >= P.length || i > j)
             throw new IllegalArgumentException("Indices invalidos");
+
+        if (i == j) return;
 
         int k = P[i][j];
         if (k == -1) return;
