@@ -11,7 +11,7 @@ public class DpSolution {
         subSolutions[0] = 0; // varilla de largo 0 vale nada
  
         for (int i = 1; i <= rodLength; i++) {
-            int tmpMax = Integer.MIN_VALUE;
+            int tmpMax = -1;
             for (int j = 0; j < i; j++) {
                 tmpMax = Math.max(tmpMax,
                                   values[j] + subSolutions[i - j - 1]);
