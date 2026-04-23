@@ -13,8 +13,7 @@ public class DpSolution {
         for (int i = 1; i <= rodLength; i++) {
             int tmpMax = -1;
             for (int j = 0; j < i; j++) {
-                tmpMax = Math.max(tmpMax,
-                                  values[j] + subSolutions[i - j - 1]);
+                tmpMax = Math.max(tmpMax, values[j] + subSolutions[i - j - 1]);
             }
             subSolutions[i] = tmpMax; 
         }
