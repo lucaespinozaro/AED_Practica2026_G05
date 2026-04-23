@@ -2,8 +2,15 @@ package Actividad_02;
 import java.util.*;
 
 public class Permutaciones {
-
     public static void permutar(int[] arr, List<Integer> actual, boolean[] usado) {
+        if (arr == null || actual == null || usado == null) {
+            throw new IllegalArgumentException("Los parámetros no pueden ser null");
+        }
+
+        if (usado.length != arr.length) {
+            throw new IllegalArgumentException("El arreglo 'usado' debe tener el mismo tamaño que 'arr'");
+        }
+
         if (actual.size() == arr.length) {
             System.out.println(actual);
             return;
