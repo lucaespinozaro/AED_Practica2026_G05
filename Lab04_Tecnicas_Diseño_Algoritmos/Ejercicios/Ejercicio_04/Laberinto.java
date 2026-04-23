@@ -53,7 +53,7 @@ public class Laberinto {
         // ser camino libre (0) y no haber sido visitada antes
         return fila >= 0 && fila < n
             && col  >= 0 && col  < n
-            && maze[fila][col]    == 0
+            && maze[fila][col] == 0
             && solucion[fila][col] == 0;
     }
  
