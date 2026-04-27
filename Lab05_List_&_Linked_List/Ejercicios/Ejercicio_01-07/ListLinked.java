@@ -1,5 +1,3 @@
-package Ejercicio_01;
-
 public class ListLinked<T extends Comparable<T>> {
     private Node<T> first;
     private int size;
