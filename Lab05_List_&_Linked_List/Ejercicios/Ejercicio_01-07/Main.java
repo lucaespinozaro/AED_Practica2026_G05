@@ -1,5 +1,3 @@
-package Ejercicio_01;
-
 public class Main {
     public static void main(String[] args) {
         ListLinked<Integer> lista1 = new ListLinked<>();
