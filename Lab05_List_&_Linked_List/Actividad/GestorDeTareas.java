@@ -1,5 +1,3 @@
-package Actividad_01;
-
 public class GestorDeTareas {
     private ListLinked<Tarea> lista;
 
