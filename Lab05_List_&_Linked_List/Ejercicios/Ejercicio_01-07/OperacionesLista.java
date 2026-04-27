@@ -1,5 +1,3 @@
-package Ejercicio_01;
-
 public class OperacionesLista {
     public static <T extends Comparable<T>> boolean buscarElemento(ListLinked<T> lista, T valor) {
         if (lista == null || valor == null) return false;
