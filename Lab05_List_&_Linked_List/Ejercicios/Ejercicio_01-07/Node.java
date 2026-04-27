@@ -1,5 +1,3 @@
-package Ejercicio_01;
-
 class Node<T extends Comparable<T>> {
     T dato;
     Node<T> next;
