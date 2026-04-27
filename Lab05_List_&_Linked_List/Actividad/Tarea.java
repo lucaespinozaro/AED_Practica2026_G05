@@ -1,5 +1,3 @@
-package Actividad_01;
-
 public class Tarea implements Comparable<Tarea> {
     private String nombre;
     private int prioridad;
