@@ -40,7 +40,7 @@ public class BancoGUI extends JFrame {
         buildUI();
         refreshAll();
     }
-    
+
     private void buildUI() {
         JPanel root = new JPanel(new BorderLayout(0, 0));
         root.setBackground(C_BG);
@@ -52,58 +52,53 @@ public class BancoGUI extends JFrame {
     }
 
     private JPanel buildHeader() {
-        JPanel header = new JPanel(new BorderLayout()) {
-            @Override protected void paintComponent(Graphics g) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                GradientPaint gp = new GradientPaint(0,0, C_PRIMARY, getWidth(), 0, new Color(0x0F2540));
-                g2.setPaint(gp); g2.fillRect(0,0,getWidth(),getHeight());
-                g2.setColor(C_ACCENT);
-                g2.fillRect(0, getHeight()-4, getWidth(), 4);
-                g2.dispose();
-            }
-        };
+        JPanel header = new JPanel(new BorderLayout());
+        header.setBackground(C_PRIMARY);
         header.setPreferredSize(new Dimension(0, 72));
-        header.setBorder(new EmptyBorder(0, 24, 4, 24));
+        header.setBorder(new EmptyBorder(10, 20, 10, 20));
 
-        JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 12, 0));
+        JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT));
         left.setOpaque(false);
+
         JLabel ico = new JLabel("🏦");
-        ico.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 30));
+        ico.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 28));
+
         JLabel title = new JLabel("BANCO ANDINO");
-        title.setFont(new Font("Georgia", Font.BOLD, 22));
+        title.setFont(new Font("Arial", Font.BOLD, 20));
         title.setForeground(Color.WHITE);
+
         JLabel sub = new JLabel("Sistema de Cola de Atención");
-        sub.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        sub.setForeground(new Color(0xB8C9DC));
-        left.add(ico); left.add(title); left.add(sub);
-        
-        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 16, 0));
+        sub.setFont(new Font("Arial", Font.PLAIN, 12));
+        sub.setForeground(Color.LIGHT_GRAY);
+
+        left.add(ico);
+        left.add(title);
+        left.add(sub);
+
+        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         right.setOpaque(false);
+
         lblContadorEspera = makeBadgeLabel("En espera: 0", C_NORMAL);
         lblContadorAtendidos = makeBadgeLabel("Atendidos: 0", C_SUCCESS);
+
         right.add(lblContadorEspera);
         right.add(lblContadorAtendidos);
 
         header.add(left, BorderLayout.WEST);
         header.add(right, BorderLayout.EAST);
+
         return header;
     }
 
     private JLabel makeBadgeLabel(String txt, Color bg) {
-        JLabel l = new JLabel(txt) {
-            @Override protected void paintComponent(Graphics g) {
-                Graphics2D g2=(Graphics2D)g.create();
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
-                g2.setColor(bg); g2.fillRoundRect(0,0,getWidth(),getHeight(),12,12);
-                super.paintComponent(g);
-                g2.dispose();
-            }
-        };
+        JLabel l = new JLabel(txt);
+
+        l.setOpaque(true);
+        l.setBackground(bg);
         l.setForeground(Color.WHITE);
-        l.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        l.setBorder(new EmptyBorder(4,12,4,12));
-        l.setOpaque(false);
+        l.setFont(new Font("Arial", Font.BOLD, 12));
+        l.setBorder(new EmptyBorder(4, 10, 4, 10));
+
         return l;
     }
 
@@ -147,7 +142,7 @@ public class BancoGUI extends JFrame {
         g.gridx=0; g.gridy=0; g.weightx=1; g.fill=GridBagConstraints.HORIZONTAL;
         form.add(fieldLabel("Nombre del cliente"), g);
         g.gridy=1;
-        txtNombre = styledField("Ej: María Quispe");
+        txtNombre = styledField("Ej: Marisol Galarza");
         form.add(txtNombre, g);
 
         g.gridy=2; form.add(fieldLabel("Tipo de operación"), g);
@@ -156,7 +151,7 @@ public class BancoGUI extends JFrame {
         styleCombo(cmbOperacion);
         form.add(cmbOperacion, g);
 
-        g.gridy=4; g.insets = new Insets(8,0,4,0);
+        g.gridy=4; g.insets=new Insets(8,0,4,0);
         chkPreferencial = new JCheckBox("Cliente preferencial (adulto mayor / embarazada)");
         chkPreferencial.setOpaque(false);
         chkPreferencial.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -260,7 +255,7 @@ public class BancoGUI extends JFrame {
         lblEstado.setForeground(C_TEXT);
         bar.add(lblEstado, BorderLayout.WEST);
 
-        JLabel info = new JLabel("ListLinked<Cliente>  |  Estructura de Datos II");
+        JLabel info = new JLabel("ListLinked<Cliente>  |  Análisis y Estructura de Datos");
         info.setFont(new Font("Segoe UI", Font.ITALIC, 11));
         info.setForeground(new Color(0x7F8C8D));
         bar.add(info, BorderLayout.EAST);
@@ -278,10 +273,10 @@ public class BancoGUI extends JFrame {
         Cliente c = new Cliente(nombre, op, pref);
 
         if (pref) {
-            colaEspera.insertFirst(c);     
+            colaEspera.insertFirst(c);    
             setEstado("Cliente preferencial N°" + c.getNumero() + " agregado al inicio.", C_PREF);
         } else {
-            colaEspera.insertLast(c);     
+            colaEspera.insertLast(c);
             setEstado("Cliente N°" + c.getNumero() + " agregado a la cola.", C_SUCCESS);
         }
 
@@ -299,6 +294,7 @@ public class BancoGUI extends JFrame {
             setEstado("La cola está vacía. No hay clientes en espera.", C_NORMAL);
             return;
         }
+
         clienteActual = colaEspera.getFirstNode().dato;
         colaEspera.remove(clienteActual);
         refreshVentanilla();
@@ -349,7 +345,7 @@ public class BancoGUI extends JFrame {
             while (aux != null) {
                 if (aux.dato.getNumero() == num) {
                     colaEspera.remove(aux.dato);
-                    setEstado("🗑️  Cliente N°" + num + " eliminado de la cola.", C_ACCENT);
+                    setEstado("Cliente N°" + num + " eliminado de la cola.", C_ACCENT);
                     refreshAll(); return;
                 }
                 aux = aux.next;
@@ -359,7 +355,7 @@ public class BancoGUI extends JFrame {
             setEstado("Ingresa un número válido.", C_PREF);
         }
     }
-    
+
     private void refreshAll() {
         List<Cliente> listaEspera = new ArrayList<>();
         Node<Cliente> aux = colaEspera.getFirstNode();
@@ -388,7 +384,7 @@ public class BancoGUI extends JFrame {
             info.add(centeredLabel("Ticket N°" + clienteActual.getNumero(), 20, Font.BOLD, C_PRIMARY));
             info.add(centeredLabel(clienteActual.getNombre(), 15, Font.BOLD, C_TEXT));
             info.add(centeredLabel(clienteActual.getTipoOperacion(), 12, Font.PLAIN, new Color(0x555555)));
-            String tipo = clienteActual.isPreferencial() ? "Preferencial" : "Normal";
+            String tipo = clienteActual.isPreferencial() ? "⭐ Preferencial" : "Normal";
             Color tc = clienteActual.isPreferencial() ? C_PREF : C_NORMAL;
             info.add(centeredLabel(tipo, 12, Font.BOLD, tc));
             panelVentanilla.add(info, BorderLayout.CENTER);
@@ -492,7 +488,8 @@ public class BancoGUI extends JFrame {
         l.setForeground(color);
         return l;
     }
-    
+
+
     class LinkedListPanel extends JPanel {
         private List<Cliente> clientes = new ArrayList<>();
         private boolean showAsHistory = false;
@@ -576,7 +573,7 @@ public class BancoGUI extends JFrame {
 
                 g2.setColor(new Color(0x666666));
                 g2.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-                g2.drawString(c.getTipoOperacion(), x + 12, y + 52);
+                g2.drawString("💼 " + c.getTipoOperacion(), x + 12, y + 52);
 
                 g2.setColor(new Color(0xDDDDDD));
                 g2.fillRoundRect(x + NODE_W - 28, y + NODE_H/2 - 8, 22, 16, 6, 6);
@@ -604,6 +601,7 @@ public class BancoGUI extends JFrame {
             g2.setColor(C_ARROW);
             g2.setStroke(new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2.drawLine(x1, y1, x2, y2);
+
             int[] xp = {x2-6, x2+6, x2};
             int[] yp = {y2-8, y2-8, y2};
             g2.fillPolygon(xp, yp, 3);
@@ -613,7 +611,7 @@ public class BancoGUI extends JFrame {
             return s.length() > max ? s.substring(0, max-2)+"…" : s;
         }
     }
-    
+
     public static void main(String[] args) {
         try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
         catch (Exception ignored) {}
