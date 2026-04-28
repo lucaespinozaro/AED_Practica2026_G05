@@ -10,13 +10,17 @@ public class Main {
         lista2.insertLast(1);
         lista2.insertLast(5);
 
-        System.out.println("Lista1: " + lista1.print());
-        System.out.println("Lista2: " + lista2.print());
+        System.out.print("Lista1: ");
+        lista1.print();
+
+        System.out.print("Lista2: ");
+        lista2.print();
 
         System.out.println("Buscar 1 en lista1: " + OperacionesLista.buscarElemento(lista1, 1));
 
         ListLinked<Integer> invertida = OperacionesLista.invertirLista(lista1);
-        System.out.println("Invertida: " + invertida.printList());
+        System.out.print("Invertida: ");
+        invertida.print();
 
         Node<Integer> head = lista1.getFirstNode();
         head = OperacionesLista.insertarAlFinal(head, 10);
@@ -34,7 +38,8 @@ public class Main {
         System.out.println("Son iguales: " + OperacionesLista.sonIguales(lista1, lista2));
 
         ListLinked<Integer> concat = OperacionesLista.concatenarListas(lista1, lista2);
-        System.out.println("Concatenadas: " + concat.printList());
+        System.out.print("Concatenadas: ");
+        concat.print();
 
         SortedListLinked<Integer> ordenada = new SortedListLinked<>();
         ordenada.insertOrden(5);
@@ -42,6 +47,7 @@ public class Main {
         ordenada.insertOrden(8);
         ordenada.insertOrden(1);
 
-        System.out.println("Ordenada: " + ordenada.printList());
+        System.out.print("Ordenada: ");
+        ordenada.print();
     }
 }
