@@ -1,9 +1,9 @@
 public class Cliente implements Comparable<Cliente> {
     private static int contadorGlobal = 1;
 
-    private int numero;       // número de ticket
+    private int numero;      
     private String nombre;
-    private String tipoOperacion; // "Depósito", "Retiro", "Préstamo", "Consulta"
+    private String tipoOperacion;
     private boolean esPreferencial;
     private long tiempoIngreso;
 
