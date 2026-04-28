@@ -1,59 +1,53 @@
-public class GestorDeTareas {
-    private ListLinked<Tarea> lista;
+public class GestorDeTareas<T extends Comparable<T>> {
+    private ListLinked<T> lista;
 
     public GestorDeTareas() {
         this.lista = new ListLinked<>();
     }
 
     public boolean estaVacia() {
-        return lista.isEmpty();
+        return lista.isEmptyList();
     }
 
-    public void agregarTarea(Tarea t) {
-        if (t == null) throw new IllegalArgumentException("Tarea null");
-        lista.insertLast(t);
+    public void agregarTarea(T tarea) {
+        if (tarea == null) throw new IllegalArgumentException("Tarea null");
+        lista.insertLast(tarea);
     }
 
-    public void insertarPorPrioridad(Tarea t) {
-        if (t == null) throw new IllegalArgumentException("Tarea null");
-        lista.insertOrdered(t);
+    public boolean eliminarTarea(T tarea) {
+        if (tarea == null) return false;
+        return lista.removeNode(tarea);
     }
 
-    public boolean eliminarTarea(Tarea t) {
-        if (t == null) return false;
-        return lista.remove(t);
+    public boolean contieneTarea(T tarea) {
+        if (tarea == null) return false;
+        return lista.search(tarea);
     }
 
-    public boolean buscarTarea(Tarea t) {
-        if (t == null) return false;
-        return lista.search(t);
+    public void imprimirTareas() {
+        lista.print();
     }
 
-    public String mostrarTareas() {
-        return lista.printList();
+    public int contarTareas() {
+        return lista.length();
+    }
+
+    public T obtenerTareaMasPrioritaria() {
+        if (lista.isEmptyList()) return null;
+
+        Node<T> aux = lista.getFirstNode();
+        T min = aux.dato;
+
+        while (aux != null) {
+            if (aux.dato.compareTo(min) < 0) {
+                min = aux.dato;
+            }
+            aux = aux.next;
+        }
+        return min;
     }
 
     public void invertirTareas() {
         lista.reverse();
-    }
-
-    public String mostrarPorEstado(String estado) {
-        if (estado == null || estado.trim().isEmpty()) throw new IllegalArgumentException("Estado invalido");
-        if (lista.isEmpty()) return "";
-
-        String est = estado.trim();
-        StringBuilder sb = new StringBuilder();
-
-        Node<Tarea> aux = lista.getFirstNode();
-
-        while (aux != null) {
-            if (aux.dato.getEstado().equalsIgnoreCase(est)) {
-                sb.append(aux.dato.toString());
-                if (aux.next != null) sb.append(" -> ");
-            }
-            aux = aux.next;
-        }
-
-        return sb.toString();
     }
 }

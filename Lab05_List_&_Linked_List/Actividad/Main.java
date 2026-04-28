@@ -1,19 +1,42 @@
 public class Main {
     public static void main(String[] args) {
-        GestorDeTareas g = new GestorDeTareas();
+        GestorDeTareas<Tarea> gestor = new GestorDeTareas<>();
+        
+        gestor.agregarTarea(new Tarea("Diseñar BD", 2, "pendiente"));
+        gestor.agregarTarea(new Tarea("Deploy produccion", 1, "pendiente"));
+        gestor.agregarTarea(new Tarea("Documentar API", 3, "completada"));
+        gestor.agregarTarea(new Tarea("Code review", 2, "pendiente"));
+        gestor.agregarTarea(new Tarea("Corregir bug #42", 1, "completada"));
 
-        g.agregarTarea(new Tarea("Estudiar", 3, "pendiente"));
-        g.agregarTarea(new Tarea("Comprar", 1, "completada"));
-        g.insertarPorPrioridad(new Tarea("Dormir", 2, "pendiente"));
+        System.out.println("Tareas:");
+        gestor.imprimirTareas();
 
-        System.out.println(g.mostrarTareas());
+        gestor.eliminarTarea(new Tarea("Code review", 2, "pendiente"));
 
-        g.eliminarTarea(new Tarea("Comprar", 1, "completada"));
-        System.out.println(g.mostrarTareas());
+        System.out.println("\nDespues de eliminar:");
+        gestor.imprimirTareas();
 
-        System.out.println(g.mostrarPorEstado("pendiente"));
+        boolean existe = gestor.contieneTarea(new Tarea("Diseñar BD", 2, "pendiente"));
+        System.out.println("\nExiste 'Diseñar BD': " + existe);
 
-        g.invertirTareas();
-        System.out.println(g.mostrarTareas());
+        System.out.println("\nMas prioritaria:");
+        System.out.println(gestor.obtenerTareaMasPrioritaria());
+
+        gestor.invertirTareas();
+        System.out.println("\nLista invertida:");
+        gestor.imprimirTareas();
+
+        ListLinked<Tarea> completadas = new ListLinked<>();
+
+        Node<Tarea> aux = gestor.lista.getFirstNode();
+        while (aux != null) {
+            if (aux.dato.getEstado().equalsIgnoreCase("completada")) {
+                completadas.insertLast(aux.dato);
+            }
+            aux = aux.next;
+        }
+
+        System.out.println("\nTareas completadas:");
+        completadas.print();
     }
 }
