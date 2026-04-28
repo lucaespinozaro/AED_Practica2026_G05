@@ -6,6 +6,9 @@ class ColaReproduccion<T extends Cancion> {
     private NodeDoble<T> actual;
 
     public void agregarCancion(T cancion) {
+        if (cancion == null)
+            throw new IllegalArgumentException();
+
         NodeDoble<T> nuevo = new NodeDoble<>(cancion);
 
         if (head == null) {
@@ -34,7 +37,7 @@ class ColaReproduccion<T extends Cancion> {
     }
 
     public void mezclar() {
-        if (head == null) return;
+        if (head == null || head.next == null) return;
 
         List<NodeDoble<T>> lista = new ArrayList<>();
         NodeDoble<T> temp = head;
@@ -48,7 +51,6 @@ class ColaReproduccion<T extends Cancion> {
 
         for (int i = lista.size() - 1; i > 0; i--) {
             int j = rand.nextInt(i + 1);
-
             NodeDoble<T> aux = lista.get(i);
             lista.set(i, lista.get(j));
             lista.set(j, aux);
@@ -64,7 +66,6 @@ class ColaReproduccion<T extends Cancion> {
 
         tail = lista.get(lista.size() - 1);
         tail.next = null;
-
         actual = head;
     }
 
@@ -81,7 +82,7 @@ class ColaReproduccion<T extends Cancion> {
             temp = temp.next;
             i++;
         }
-      
+
         if (actual != null)
             System.out.println("► Reproduciendo ahora: " + actual.data);
     }
