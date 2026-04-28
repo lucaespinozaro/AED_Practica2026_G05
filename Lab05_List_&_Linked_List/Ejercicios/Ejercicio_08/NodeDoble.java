@@ -7,7 +7,6 @@ class NodeDoble<T> {
         if (data == null)
             throw new IllegalArgumentException();
         this.data = data;
-        this.data = data;
         this.next = null;
         this.prev = null;
     }
