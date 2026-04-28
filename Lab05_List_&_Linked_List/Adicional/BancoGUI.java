@@ -573,7 +573,7 @@ public class BancoGUI extends JFrame {
 
                 g2.setColor(new Color(0x666666));
                 g2.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-                g2.drawString("💼 " + c.getTipoOperacion(), x + 12, y + 52);
+                g2.drawString(c.getTipoOperacion(), x + 12, y + 52);
 
                 g2.setColor(new Color(0xDDDDDD));
                 g2.fillRoundRect(x + NODE_W - 28, y + NODE_H/2 - 8, 22, 16, 6, 6);
