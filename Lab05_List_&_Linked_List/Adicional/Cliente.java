@@ -31,7 +31,6 @@ public class Cliente implements Comparable<Cliente> {
 
     @Override
     public int compareTo(Cliente otro) {
-        // Preferenciales primero, luego por número de ticket
         if (this.esPreferencial && !otro.esPreferencial) return -1;
         if (!this.esPreferencial && otro.esPreferencial) return 1;
         return Integer.compare(this.numero, otro.numero);
