@@ -21,28 +21,28 @@ public class ListLinked<T extends Comparable<T>> {
 
     public void insertFirst(T dato) {
         if (dato == null) throw new IllegalArgumentException("Dato null");
-        Node<T> n = new Node<>(dato);
-        n.next = first;
-        first = n;
+        Node<T> nuevo = new Node<>(dato);
+        nuevo.next = this.first;
+        this.first = nuevo;
         size++;
     }
 
     public void insertLast(T dato) {
         if (dato == null) throw new IllegalArgumentException("Dato null");
-        Node<T> n = new Node<>(dato);
-        if (isEmpty()) {
-            first = n;
+        Node<T> nuevo = new Node<>(dato);
+        if (this.isEmpty()) {
+            this.first = nuevo;
         } else {
-            Node<T> aux = first;
+            Node<T> aux = this.first;
             while (aux.next != null) aux = aux.next;
-            aux.next = n;
+            aux.next = nuevo;
         }
         size++;
     }
 
     public boolean search(T dato) {
-        if (dato == null || isEmpty()) return false;
-        Node<T> aux = first;
+        if (dato == null || this.isEmpty()) return false;
+        Node<T> aux = this.first;
         while (aux != null) {
             if (aux.dato.compareTo(dato) == 0) return true;
             aux = aux.next;
@@ -51,15 +51,15 @@ public class ListLinked<T extends Comparable<T>> {
     }
 
     public boolean remove(T dato) {
-        if (dato == null || isEmpty()) return false;
+        if (dato == null || this.isEmpty()) return false;
 
-        if (first.dato.compareTo(dato) == 0) {
-            first = first.next;
+        if (this.first.dato.compareTo(dato) == 0) {
+            this.first = this.first.next;
             size--;
             return true;
         }
 
-        Node<T> aux = first;
+        Node<T> aux = this.first;
         while (aux.next != null && aux.next.dato.compareTo(dato) != 0) {
             aux = aux.next;
         }
@@ -73,18 +73,18 @@ public class ListLinked<T extends Comparable<T>> {
 
     public void insertOrdered(T dato) {
         if (dato == null) throw new IllegalArgumentException("Dato null");
-        Node<T> n = new Node<>(dato);
+        Node<T> nuevo = new Node<>(dato);
 
-        if (isEmpty() || first.dato.compareTo(dato) >= 0) {
-            n.next = first;
-            first = n;
+        if (this.isEmpty() || this.first.dato.compareTo(dato) >= 0) {
+            nuevo.next = this.first;
+            this.first = nuevo;
         } else {
-            Node<T> aux = first;
+            Node<T> aux = this.first;
             while (aux.next != null && aux.next.dato.compareTo(dato) < 0) {
                 aux = aux.next;
             }
-            n.next = aux.next;
-            aux.next = n;
+            nuevo.next = aux.next;
+            aux.next = nuevo;
         }
         size++;
     }
@@ -94,9 +94,9 @@ public class ListLinked<T extends Comparable<T>> {
     }
 
     public String printList() {
-        if (isEmpty()) return "";
+        if (this.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
-        Node<T> aux = first;
+        Node<T> aux = this.first;
         while (aux != null) {
             sb.append(aux.dato.toString());
             if (aux.next != null) sb.append(" -> ");
@@ -107,13 +107,13 @@ public class ListLinked<T extends Comparable<T>> {
 
     public void reverse() {
         Node<T> prev = null;
-        Node<T> curr = first;
+        Node<T> curr = this.first;
         while (curr != null) {
             Node<T> next = curr.next;
             curr.next = prev;
             prev = curr;
             curr = next;
         }
-        first = prev;
+        this.first = prev;
     }
 }
