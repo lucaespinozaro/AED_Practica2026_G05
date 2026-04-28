@@ -50,4 +50,8 @@ public class GestorDeTareas<T extends Comparable<T>> {
     public void invertirTareas() {
         lista.reverse();
     }
+
+    public Node<T> getFirstNode() {
+        return lista.getFirstNode();
+    }
 }
