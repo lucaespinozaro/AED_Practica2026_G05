@@ -11,6 +11,14 @@ public class ListLinked<T extends Comparable<T>> {
         return first;
     }
 
+    protected void setFirstNode(Node<T> node) {
+        this.first = node;
+    }
+
+    protected void incrementSize() {
+        this.size++;
+    }
+
     public boolean isEmptyList() {
         return size == 0;
     }
@@ -104,7 +112,7 @@ public class ListLinked<T extends Comparable<T>> {
         }
         System.out.println(sb.toString());
     }
-    
+
     public void reverse() {
         Node<T> prev = null;
         Node<T> curr = this.first;
