@@ -11,11 +11,11 @@ public class ListLinked<T extends Comparable<T>> {
         return first;
     }
 
-    public boolean isEmpty() {
+    public boolean isEmptyList() {
         return size == 0;
     }
 
-    public int size() {
+    public int length() {
         return size;
     }
 
@@ -30,7 +30,7 @@ public class ListLinked<T extends Comparable<T>> {
     public void insertLast(T dato) {
         if (dato == null) throw new IllegalArgumentException("Dato null");
         Node<T> nuevo = new Node<>(dato);
-        if (this.isEmpty()) {
+        if (this.isEmptyList()) {
             this.first = nuevo;
         } else {
             Node<T> aux = this.first;
@@ -41,7 +41,7 @@ public class ListLinked<T extends Comparable<T>> {
     }
 
     public boolean search(T dato) {
-        if (dato == null || this.isEmpty()) return false;
+        if (dato == null || this.isEmptyList()) return false;
         Node<T> aux = this.first;
         while (aux != null) {
             if (aux.dato.compareTo(dato) == 0) return true;
@@ -51,7 +51,7 @@ public class ListLinked<T extends Comparable<T>> {
     }
 
     public boolean remove(T dato) {
-        if (dato == null || this.isEmpty()) return false;
+        if (dato == null || this.isEmptyList()) return false;
 
         if (this.first.dato.compareTo(dato) == 0) {
             this.first = this.first.next;
@@ -75,7 +75,7 @@ public class ListLinked<T extends Comparable<T>> {
         if (dato == null) throw new IllegalArgumentException("Dato null");
         Node<T> nuevo = new Node<>(dato);
 
-        if (this.isEmpty() || this.first.dato.compareTo(dato) >= 0) {
+        if (this.isEmptyList() || this.first.dato.compareTo(dato) >= 0) {
             nuevo.next = this.first;
             this.first = nuevo;
         } else {
@@ -90,11 +90,11 @@ public class ListLinked<T extends Comparable<T>> {
     }
 
     public void print() {
-        System.out.println(printList());
-    }
+        if (this.isEmptyList()) {
+            System.out.println("");
+            return;
+        }
 
-    public String printList() {
-        if (this.isEmpty()) return "";
         StringBuilder sb = new StringBuilder();
         Node<T> aux = this.first;
         while (aux != null) {
@@ -102,9 +102,9 @@ public class ListLinked<T extends Comparable<T>> {
             if (aux.next != null) sb.append(" -> ");
             aux = aux.next;
         }
-        return sb.toString();
+        System.out.println(sb.toString());
     }
-
+    
     public void reverse() {
         Node<T> prev = null;
         Node<T> curr = this.first;
