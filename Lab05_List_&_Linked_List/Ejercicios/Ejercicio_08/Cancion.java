@@ -4,6 +4,8 @@ class Cancion {
     private int duracionSeg;
 
     public Cancion(String titulo, String artista, int duracionSeg) {
+        if (titulo == null || artista == null || duracionSeg < 0)
+            throw new IllegalArgumentException();
         this.titulo = titulo;
         this.artista = artista;
         this.duracionSeg = duracionSeg;
