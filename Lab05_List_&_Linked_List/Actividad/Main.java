@@ -28,7 +28,7 @@ public class Main {
 
         ListLinked<Tarea> completadas = new ListLinked<>();
 
-        Node<Tarea> aux = gestor.lista.getFirstNode();
+        Node<Tarea> aux = gestor.getFirstNode();
         while (aux != null) {
             if (aux.dato.getEstado().equalsIgnoreCase("completada")) {
                 completadas.insertLast(aux.dato);
