@@ -10,8 +10,8 @@ public class Main {
         lista2.insertLast(1);
         lista2.insertLast(5);
 
-        System.out.println("Lista1: " + lista1.printList());
-        System.out.println("Lista2: " + lista2.printList());
+        System.out.println("Lista1: " + lista1.print());
+        System.out.println("Lista2: " + lista2.print());
 
         System.out.println("Buscar 1 en lista1: " + OperacionesLista.buscarElemento(lista1, 1));
 
