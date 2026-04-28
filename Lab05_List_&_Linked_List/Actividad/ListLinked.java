@@ -50,7 +50,7 @@ public class ListLinked<T extends Comparable<T>> {
         return false;
     }
 
-    public boolean remove(T dato) {
+    public boolean removeNode(T dato) {
         if (dato == null || this.isEmptyList()) return false;
 
         if (this.first.dato.compareTo(dato) == 0) {
