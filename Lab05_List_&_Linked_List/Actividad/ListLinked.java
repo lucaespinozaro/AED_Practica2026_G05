@@ -8,7 +8,7 @@ public class ListLinked<T extends Comparable<T>> {
     }
 
     public Node<T> getFirstNode() {
-        return first;
+        return this.first;
     }
 
     public boolean isEmptyList() {
