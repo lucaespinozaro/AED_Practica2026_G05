@@ -26,7 +26,8 @@ public class Cola<E> {
         if (isEmpty()) {
             throw new RuntimeException("La cola está vacía");
         }
-        E dato = array[inicio];
+        E dato = array[inicio];// como estamos trabaajndp 
+        array[inicio] = null
         inicio = (inicio + 1) % capacidad;
         cantidad--;
         return dato;
