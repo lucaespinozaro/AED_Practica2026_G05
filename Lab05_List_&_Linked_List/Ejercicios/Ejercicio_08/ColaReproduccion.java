@@ -1,100 +1,77 @@
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
-class ColaReproduccion<T extends Cancion> {
-    private NodeDoble<T> head;
-    private NodeDoble<T> tail;
-    private NodeDoble<T> actual;
+class ColaReproduccion<T extends Cancion>
+{
+  private final ListaDoblementeEnlazada<T> lista = new ListaDoblementeEnlazada<>();
+  private NodeDoble<T> actual;
 
-    public void agregarCancion(T cancion) {
-        if (cancion == null)
-            throw new IllegalArgumentException();
+  public void agregarCancion(T cancion)
+  {
+    if (cancion == null)
+      throw new IllegalArgumentException();
 
-        NodeDoble<T> nuevo = new NodeDoble<>(cancion);
+    boolean estabaVacia = lista.isEmpty();
+    lista.agregar(cancion);
 
-        if (head == null) {
-            head = tail = actual = nuevo;
-        } else {
-            tail.next = nuevo;
-            nuevo.prev = tail;
-            tail = nuevo;
-        }
+    if (estabaVacia)
+      actual = lista.getHead();
+  }
+
+  public T reproducirSiguiente()
+  {
+    if (actual != null && actual.next != null) {
+      actual = actual.next;
+      return actual.data;
+    }
+    return null;
+  }
+
+  public T reproducirAnterior()
+  {
+    if (actual != null && actual.prev != null) {
+      actual = actual.prev;
+      return actual.data;
+    }
+    return null;
+  }
+
+  public void mezclar() {
+    List<NodeDoble<T>> nodos = lista.obtenerNodos();
+    if (nodos.size() <= 1) return;
+
+    Random rand = new Random();
+    for (int i = nodos.size() - 1; i > 0; i--) {
+      int j = rand.nextInt(i + 1);
+      NodeDoble<T> aux = nodos.get(i);
+      nodos.set(i, nodos.get(j));
+      nodos.set(j, aux);
     }
 
-    public T reproducirSiguiente() {
-        if (actual != null && actual.next != null) {
-            actual = actual.next;
-            return actual.data;
-        }
-        return null;
+    lista.reenlazar(nodos);
+    actual = lista.getHead();
+  }
+
+  public void mostrarCola()
+  {
+    List<NodeDoble<T>> nodos = lista.obtenerNodos();
+    for (int i = 0; i < nodos.size(); i++) {
+      NodeDoble<T> nodo = nodos.get(i);
+      if (nodo == actual)
+        System.out.println((i + 1) + ". ► " + nodo.data);
+      else
+        System.out.println((i + 1) + ". " + nodo.data);
     }
 
-    public T reproducirAnterior() {
-        if (actual != null && actual.prev != null) {
-            actual = actual.prev;
-            return actual.data;
-        }
-        return null;
-    }
+    if (actual != null)
+      System.out.println("► Reproduciendo ahora: " + actual.data);
+  }
 
-    public void mezclar() {
-        if (head == null || head.next == null) return;
-
-        List<NodeDoble<T>> lista = new ArrayList<>();
-        NodeDoble<T> temp = head;
-
-        while (temp != null) {
-            lista.add(temp);
-            temp = temp.next;
-        }
-
-        Random rand = new Random();
-
-        for (int i = lista.size() - 1; i > 0; i--) {
-            int j = rand.nextInt(i + 1);
-            NodeDoble<T> aux = lista.get(i);
-            lista.set(i, lista.get(j));
-            lista.set(j, aux);
-        }
-
-        head = lista.get(0);
-        head.prev = null;
-
-        for (int i = 1; i < lista.size(); i++) {
-            lista.get(i - 1).next = lista.get(i);
-            lista.get(i).prev = lista.get(i - 1);
-        }
-
-        tail = lista.get(lista.size() - 1);
-        tail.next = null;
-        actual = head;
-    }
-
-    public void mostrarCola() {
-        NodeDoble<T> temp = head;
-        int i = 1;
-
-        while (temp != null) {
-            if (temp == actual)
-                System.out.println(i + ". ► " + temp.data);
-            else
-                System.out.println(i + ". " + temp.data);
-
-            temp = temp.next;
-            i++;
-        }
-
-        if (actual != null)
-            System.out.println("► Reproduciendo ahora: " + actual.data);
-    }
-
-    public int duracionTotal() {
-        int total = 0;
-        NodeDoble<T> temp = head;
-
-        while (temp != null) {
-            total += temp.data.getDuracionSeg();
-            temp = temp.next;
-        }
-        return total;
-    }
+  public int duracionTotal()
+  {
+    return lista.obtenerNodos()
+      .stream()
+      .mapToInt(n -> n.data.getDuracionSeg())
+      .sum();
+  }
 }
