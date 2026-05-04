@@ -1,5 +1,3 @@
-package Ejercicio_03;
-
 public class ColaEnlazada<E> {
     private Node<E> inicio;
     private Node<E> fin;
