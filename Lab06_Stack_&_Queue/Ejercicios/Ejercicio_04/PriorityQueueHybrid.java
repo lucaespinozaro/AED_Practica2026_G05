@@ -1,5 +1,3 @@
-package Ejercicio_04;
-
 public class PriorityQueueHybrid<E> {
     private int niveles;
     private ColaOrdenada<E>[] colas;
