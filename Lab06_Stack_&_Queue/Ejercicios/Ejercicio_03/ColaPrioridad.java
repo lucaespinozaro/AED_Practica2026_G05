@@ -1,5 +1,3 @@
-package Ejercicio_03;
-
 public class ColaPrioridad<E> {
     private int niveles;
     private ColaEnlazada<E>[] colas;
