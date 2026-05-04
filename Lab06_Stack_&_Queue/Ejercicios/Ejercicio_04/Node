@@ -1,0 +1,11 @@
+class Node<E> {
+    E dato;
+    int valor;
+    Node<E> next;
+
+    public Node(E dato, int valor) {
+        this.dato = dato;
+        this.valor = valor;
+        this.next = null;
+    }
+}
