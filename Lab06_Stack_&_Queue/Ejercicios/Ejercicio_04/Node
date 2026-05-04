@@ -9,4 +9,3 @@ class Node<E> {
         this.next = null;
     }
 }
-d
