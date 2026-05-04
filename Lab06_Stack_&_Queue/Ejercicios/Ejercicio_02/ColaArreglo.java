@@ -1,5 +1,3 @@
-package Ejercicio_02;
-
 public class ColaArreglo<E> {
     private int inicio;
     private int fin;
