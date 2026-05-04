@@ -1,5 +1,3 @@
-package Ejercicio_04;
-
 public class ColaOrdenada<E> {
     private Node<E> inicio;
 
