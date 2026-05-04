@@ -1,5 +1,3 @@
-package Ejercicio_03;
-
 class Node<E> {
     E dato;
     Node<E> next;
