@@ -1,6 +1,6 @@
-package pilalista;
+package actividadPilaLista;
 
-import Actividad1.ExceptionIsEmpty;
+import actividad1.ExceptionIsEmpty;
 
 public interface Stack<E> {
     void push(E x);
