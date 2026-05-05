@@ -1,4 +1,4 @@
-package pilalista;
+package actividadPilaLista;
 
 public class Node<E> {
     private E data;
