@@ -1,3 +1,4 @@
+package actividad1;
 
 public interface Queue<E>
 {

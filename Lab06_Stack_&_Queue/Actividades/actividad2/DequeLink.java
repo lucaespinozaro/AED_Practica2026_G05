@@ -1,17 +1,20 @@
 package actividad2;
 import actividad1.ExceptionIsEmpty;
-import actividad3.Node; // Usamos el nodo de la actividad 3
+import actividad3.Node; 
 
-public class DequeLink<E> implements Deque<E> {
+public class DequeLink<E> implements Deque<E>
+{
   private Node<E> first;
   private Node<E> last;
 
-  public DequeLink() {
+  public DequeLink()
+  {
     this.first = null;
     this.last = null;
   }
 
-  public void addFirst(E x) {
+  public void addFirst(E x)
+  {
     Node<E> nuevo = new Node<>(x);
     if (isEmpty()) {
       first = last = nuevo;
@@ -21,7 +24,8 @@ public class DequeLink<E> implements Deque<E> {
     }
   }
 
-  public void addLast(E x) {
+  public void addLast(E x)
+  {
     Node<E> nuevo = new Node<>(x);
     if (isEmpty()) {
       first = last = nuevo;
@@ -39,7 +43,8 @@ public class DequeLink<E> implements Deque<E> {
     return aux;
   }
 
-  public E removeLast() throws ExceptionIsEmpty {
+  public E removeLast() throws ExceptionIsEmpty
+  {
     if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
     E aux = last.getData();
     if (first == last) {
@@ -53,21 +58,25 @@ public class DequeLink<E> implements Deque<E> {
     return aux;
   }
 
-  public E getFirst() throws ExceptionIsEmpty {
+  public E getFirst() throws ExceptionIsEmpty
+  {
     if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
     return first.getData();
   }
 
-  public E getLast() throws ExceptionIsEmpty {
+  public E getLast() throws ExceptionIsEmpty
+  {
     if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
     return last.getData();
   }
 
-  public boolean isEmpty() {
+  public boolean isEmpty()
+  {
     return first == null;
   }
 
-  public String toString() {
+  public String toString()
+  {
     String res = "Deque: ";
     Node<E> temp = first;
     while (temp != null) {

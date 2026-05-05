@@ -1,3 +1,4 @@
+package actividad1;
 
 public class QueueArray<E> implements Queue<E>
 {

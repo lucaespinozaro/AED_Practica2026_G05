@@ -1,8 +1,10 @@
 package actividad3;
 import actividad1.ExceptionIsEmpty;
 
-public class PriorityQueueLinkSort<E, N extends Comparable<N>> implements PriorityQueue<E, N> {
-  class EntryNode {
+public class PriorityQueueLinkSort<E, N extends Comparable<N>> implements PriorityQueue<E, N>
+{
+  class EntryNode
+  {
     E data;
     N priority;
     EntryNode(E data, N priority) {
@@ -14,12 +16,14 @@ public class PriorityQueueLinkSort<E, N extends Comparable<N>> implements Priori
   private Node<EntryNode> first;
   private Node<EntryNode> last;
 
-  public PriorityQueueLinkSort() {
+  public PriorityQueueLinkSort()
+  {
     this.first = null;
     this.last = null;
   }
 
-  public void enqueue(E x, N pr) {
+  public void enqueue(E x, N pr)
+  {
     EntryNode nuevoDato = new EntryNode(x, pr);
     Node<EntryNode> nuevoNodo = new Node<>(nuevoDato);
         
@@ -38,7 +42,8 @@ public class PriorityQueueLinkSort<E, N extends Comparable<N>> implements Priori
     }
   }
 
-  public E dequeue() throws ExceptionIsEmpty {
+  public E dequeue() throws ExceptionIsEmpty
+  {
     if (isEmpty()) throw new ExceptionIsEmpty("Queue is empty");
     E aux = this.first.getData().data;
     this.first = this.first.getNext();
@@ -46,17 +51,20 @@ public class PriorityQueueLinkSort<E, N extends Comparable<N>> implements Priori
     return aux;
   }
 
-  public E front() throws ExceptionIsEmpty {
+  public E front() throws ExceptionIsEmpty
+  {
     if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
     return first.getData().data;
   }
 
-  public E back() throws ExceptionIsEmpty {
+  public E back() throws ExceptionIsEmpty
+  {
     if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
     return last.getData().data;
   }
 
-  public boolean isEmpty() {
+  public boolean isEmpty()
+  {
     return first == null;
   }
 
