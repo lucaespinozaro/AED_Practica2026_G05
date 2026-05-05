@@ -1,21 +1,23 @@
 package actividad2;
-import actividad1.ExceptionIsEmpty;
-import actividad3.Node; 
 
-public class DequeLink<E> implements Deque<E>
+import actividad1.ExceptionIsEmpty;
+
+class DequeLink<E> implements Deque<E>
 {
   private Node<E> first;
   private Node<E> last;
 
   public DequeLink()
   {
-    this.first = null;
-    this.last = null;
+    first = null;
+    last = null;
   }
 
   public void addFirst(E x)
   {
+    if (x == null) throw new IllegalArgumentException();
     Node<E> nuevo = new Node<>(x);
+
     if (isEmpty()) {
       first = last = nuevo;
     } else {
@@ -26,7 +28,9 @@ public class DequeLink<E> implements Deque<E>
 
   public void addLast(E x)
   {
+    if (x == null) throw new IllegalArgumentException();
     Node<E> nuevo = new Node<>(x);
+
     if (isEmpty()) {
       first = last = nuevo;
     } else {
@@ -35,38 +39,47 @@ public class DequeLink<E> implements Deque<E>
     }
   }
 
-  public E removeFirst() throws ExceptionIsEmpty {
-    if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
+  public E removeFirst() throws ExceptionIsEmpty
+  {
+    if (isEmpty()) throw new ExceptionIsEmpty("La deque esta vacia");
+
     E aux = first.getData();
     first = first.getNext();
+
     if (first == null) last = null;
+
     return aux;
   }
 
   public E removeLast() throws ExceptionIsEmpty
   {
-    if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
+    if (isEmpty()) throw new ExceptionIsEmpty("La deque esta vacia");
+
     E aux = last.getData();
+
     if (first == last) {
       first = last = null;
     } else {
       Node<E> temp = first;
-      while (temp.getNext() != last) temp = temp.getNext();
+      while (temp.getNext() != last) {
+        temp = temp.getNext();
+      }
       temp.setNext(null);
       last = temp;
     }
+
     return aux;
   }
 
   public E getFirst() throws ExceptionIsEmpty
   {
-    if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
+    if (isEmpty()) throw new ExceptionIsEmpty("La deque esta vacia");
     return first.getData();
   }
 
   public E getLast() throws ExceptionIsEmpty
   {
-    if (isEmpty()) throw new ExceptionIsEmpty("Vacio");
+    if (isEmpty()) throw new ExceptionIsEmpty("La deque esta vacia");
     return last.getData();
   }
 
@@ -77,12 +90,14 @@ public class DequeLink<E> implements Deque<E>
 
   public String toString()
   {
-    String res = "Deque: ";
+    StringBuilder res = new StringBuilder("Deque: ");
     Node<E> temp = first;
+
     while (temp != null) {
-      res += temp.getData() + " ";
+      res.append(temp.getData()).append(" ");
       temp = temp.getNext();
     }
-    return res;
+
+    return res.toString();
   }
 }
