@@ -13,11 +13,11 @@ public class HospitalGUI extends JFrame {
     private static final Color BG_INPUT     = new Color(22, 30, 52);
     private static final Color ACCENT_BLUE  = new Color(41, 121, 255);
     private static final Color ACCENT_CYAN  = new Color(0, 212, 255);
-    private static final Color COLOR_ROJO   = new Color(255, 59, 59);
+    private static final Color COLOR_ROJO   = new Color(255, 75, 75);
     private static final Color COLOR_AMARI  = new Color(255, 196, 0);
     private static final Color COLOR_VERDE  = new Color(39, 209, 89);
     private static final Color TEXT_PRIMARY = new Color(220, 230, 255);
-    private static final Color TEXT_MUTED   = new Color(100, 120, 170);
+    private static final Color TEXT_MUTED   = new Color(120, 150, 250);
     private static final Color BORDER_COLOR = new Color(35, 50, 90);
 
     private JTextField txtNombre, txtEdad, txtSintoma;
