@@ -1,26 +1,27 @@
-package pilalista;
+package actividadPilaLista;
 
-import Actividad1.ExceptionIsEmpty;
+import actividad1.ExceptionIsEmpty;
 
 public class MainStackLink {
     public static void main(String[] args) {
-        GestorPilaEnlazada<Integer> gestor = new GestorPilaEnlazada<>();
+        Stack<Integer> pila = new StackLink<>();
         Integer[] valores = {10, 20, 30, 40, 50};
 
-        System.out.println("Añadiendo elementos a la pila:");
-        gestor.agregarTodos(valores);
-        gestor.imprimirPila();
+        for (Integer v : valores) {
+            pila.push(v);
+        }
+
+        System.out.println(pila.toString());
 
         try {
-            System.out.println("Elemento en el tope: " + gestor.verTope());
-            System.out.println("Eliminando todos los elementos:");
-            while (!gestor.estaVacia()) {
-                System.out.println("eliminar -> " + gestor.eliminar());
-                gestor.imprimirPila();
+            System.out.println(pila.top());
+            while (!pila.isEmpty()) {
+                System.out.println(pila.pop());
+                System.out.println(pila.toString());
             }
-            System.out.println("¿La pila está vacía? " + gestor.estaVacia());
+            System.out.println(pila.isEmpty());
         } catch (ExceptionIsEmpty e) {
-            System.err.println("Error: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }
