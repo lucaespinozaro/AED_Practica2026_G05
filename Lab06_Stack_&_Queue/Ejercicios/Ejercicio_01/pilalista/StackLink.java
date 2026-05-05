@@ -1,8 +1,8 @@
-package pilalista;
+package actividadPilaLista;
 
-import Actividad1.ExceptionIsEmpty;
+import actividad1.ExceptionIsEmpty;
 
-public class StackLink<E> implements Stack<E> {
+class StackLink<E> implements Stack<E> {
     private Node<E> top;
 
     public StackLink() {
@@ -11,9 +11,12 @@ public class StackLink<E> implements Stack<E> {
 
     @Override
     public void push(E x) {
-        Node<E> nuevoNodo = new Node<E>(x);
-        nuevoNodo.setNext(top);
-        top = nuevoNodo;
+        if (x == null) {
+            throw new IllegalArgumentException();
+        }
+        Node<E> nuevo = new Node<>(x);
+        nuevo.setNext(top);
+        top = nuevo;
     }
 
     @Override
@@ -41,15 +44,15 @@ public class StackLink<E> implements Stack<E> {
 
     @Override
     public String toString() {
-        String resultado = "Pila (tope -> fondo): ";
+        StringBuilder sb = new StringBuilder("Pila (tope -> fondo): ");
         Node<E> actual = top;
         while (actual != null) {
-            resultado += actual.getData();
+            sb.append(actual.getData());
             if (actual.getNext() != null) {
-                resultado += " -> ";
+                sb.append(" -> ");
             }
             actual = actual.getNext();
         }
-        return resultado;
+        return sb.toString();
     }
 }
