@@ -1,6 +1,6 @@
 package actividad1;
 
-public class QueueArray<E> implements Queue<E>
+class QueueArray<E> implements Queue<E>
 {
   private E[] array;
   private int front;
@@ -9,6 +9,7 @@ public class QueueArray<E> implements Queue<E>
 
   public QueueArray(int n)
   {
+    if (n <= 0) throw new IllegalArgumentException();
     array = (E[]) new Object[n];
     front = 0;
     rear = -1;
@@ -17,11 +18,11 @@ public class QueueArray<E> implements Queue<E>
 
   public void enqueue(E x)
   {
-    if (!isFull()) {
-      rear = (rear + 1) % array.length;
-      array[rear] = x;
-      size++;
-    }
+    if (x == null) throw new IllegalArgumentException();
+    if (isFull()) throw new IllegalStateException("La cola esta llena");
+    rear = (rear + 1) % array.length;
+    array[rear] = x;
+    size++;
   }
 
   public E dequeue() throws ExceptionIsEmpty
@@ -51,14 +52,14 @@ public class QueueArray<E> implements Queue<E>
 
   public String toString()
   {
-    String res = "Cola: ";
+    StringBuilder res = new StringBuilder("Cola: ");
     int count = 0;
     int i = front;
     while (count < size) {
-      res += array[i] + " ";
+      res.append(array[i]).append(" ");
       i = (i + 1) % array.length;
       count++;
     }
-    return res;
+    return res.toString();
   }
 }
