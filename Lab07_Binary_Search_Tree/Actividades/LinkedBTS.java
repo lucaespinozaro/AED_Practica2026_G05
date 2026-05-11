@@ -1,1 +1,238 @@
+public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
+    private class Node {
+        private E data;
+        private Node left;
+        private Node right;
 
+        public Node(E data) {
+            if (data == null) {
+                throw new IllegalArgumentException("Data null");
+            }
+
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    private Node root;
+
+    public LinkedBST() {
+        this.root = null;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return this.root == null;
+    }
+
+    @Override
+    public void insert(E data) throws ItemDuplicated {
+        validateData(data);
+        this.root = insert(this.root, data);
+    }
+
+    private Node insert(Node node, E data) throws ItemDuplicated {
+        if (node == null) {
+            return new Node(data);
+        }
+
+        int cmp = data.compareTo(node.data);
+
+        if (cmp < 0) {
+            node.left = insert(node.left, data);
+        } else if (cmp > 0) {
+            node.right = insert(node.right, data);
+        } else {
+            throw new ItemDuplicated("Item duplicated");
+        }
+
+        return node;
+    }
+
+    @Override
+    public boolean search(E data) throws ItemNoFound {
+        validateData(data);
+
+        if (!search(this.root, data)) {
+            throw new ItemNoFound("Item not found");
+        }
+
+        return true;
+    }
+
+    private boolean search(Node node, E data) {
+        if (node == null) {
+            return false;
+        }
+
+        int cmp = data.compareTo(node.data);
+
+        if (cmp < 0) {
+            return search(node.left, data);
+        }
+
+        if (cmp > 0) {
+            return search(node.right, data);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void delete(E data) throws ExceptionIsEmpty {
+        validateData(data);
+
+        if (isEmpty()) {
+            throw new ExceptionIsEmpty("BST is empty");
+        }
+
+        this.root = delete(this.root, data);
+    }
+
+    private Node delete(Node node, E data) {
+        if (node == null) {
+            return null;
+        }
+
+        int cmp = data.compareTo(node.data);
+
+        if (cmp < 0) {
+            node.left = delete(node.left, data);
+        } else if (cmp > 0) {
+            node.right = delete(node.right, data);
+        } else {
+
+            if (node.left == null && node.right == null) {
+                return null;
+            }
+
+            if (node.left == null) {
+                return node.right;
+            }
+
+            if (node.right == null) {
+                return node.left;
+            }
+
+            Node successor = findMinNode(node.right);
+
+            node.data = successor.data;
+
+            node.right = delete(node.right, successor.data);
+        }
+
+        return node;
+    }
+
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        inOrder(this.root, sb);
+
+        return sb.toString().trim();
+    }
+
+    private void inOrder(Node node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+
+        inOrder(node.left, sb);
+
+        sb.append(node.data).append(" ");
+
+        inOrder(node.right, sb);
+    }
+
+    public String preOrder() {
+        if (isEmpty()) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        preOrder(this.root, sb);
+
+        return sb.toString().trim();
+    }
+
+    private void preOrder(Node node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+
+        sb.append(node.data).append(" ");
+
+        preOrder(node.left, sb);
+
+        preOrder(node.right, sb);
+    }
+
+    public String postOrder() {
+        if (isEmpty()) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        postOrder(this.root, sb);
+
+        return sb.toString().trim();
+    }
+
+    private void postOrder(Node node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+
+        postOrder(node.left, sb);
+
+        postOrder(node.right, sb);
+
+        sb.append(node.data).append(" ");
+    }
+
+    public E findMinNode() throws ItemNoFound {
+        if (isEmpty()) {
+            throw new ItemNoFound("BST is empty");
+        }
+
+        return findMinNode(this.root).data;
+    }
+
+    private Node findMinNode(Node node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+
+        return node;
+    }
+
+    public E findMaxNode() throws ItemNoFound {
+        if (isEmpty()) {
+            throw new ItemNoFound("BST is empty");
+        }
+
+        return findMaxNode(this.root).data;
+    }
+
+    private Node findMaxNode(Node node) {
+        while (node.right != null) {
+            node = node.right;
+        }
+
+        return node;
+    }
+
+    private void validateData(E data) {
+        if (data == null) {
+            throw new IllegalArgumentException("Data null");
+        }
+    }
+}
