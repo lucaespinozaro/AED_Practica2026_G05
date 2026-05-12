@@ -152,7 +152,6 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
                     if (n.right != null) q.enqueue(n.right);
                 } catch (Exception e) {}
             }
-            nivelActual++;
         }
         return max;
     }
