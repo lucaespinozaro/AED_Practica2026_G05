@@ -29,10 +29,10 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     @Override
     public void insert(E data) throws ItemDuplicated {
         validateData(data);
-        this.root = insert(this.root, data);
+        this.root = insertRec(this.root, data);
     }
 
-    private Node insert(Node node, E data) throws ItemDuplicated {
+    private Node insertRec(Node node, E data) throws ItemDuplicated {
         if (node == null) {
             return new Node(data);
         }
@@ -40,9 +40,9 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         int cmp = data.compareTo(node.data);
 
         if (cmp < 0) {
-            node.left = insert(node.left, data);
+            node.left = insertRec(node.left, data);
         } else if (cmp > 0) {
-            node.right = insert(node.right, data);
+            node.right = insertRec(node.right, data);
         } else {
             throw new ItemDuplicated("Item duplicated");
         }
@@ -51,32 +51,20 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     @Override
-    public boolean search(E data) throws ItemNoFound {
+    public E search(E data) throws ItemNoFound {
         validateData(data);
-
-        if (!search(this.root, data)) {
-            throw new ItemNoFound("Item not found");
+        Node found = searchRec(this.root, data);
+        if (found == null) {
+            throw new ItemNoFound("El dato no existe en el BST.");
         }
-
-        return true;
+        return found.data;
     }
 
-    private boolean search(Node node, E data) {
-        if (node == null) {
-            return false;
-        }
-
+    private Node searchRec(Node node, E data) {
+        if (node == null) { return false; }
         int cmp = data.compareTo(node.data);
-
-        if (cmp < 0) {
-            return search(node.left, data);
-        }
-
-        if (cmp > 0) {
-            return search(node.right, data);
-        }
-
-        return true;
+        if (cmp == 0) return node;
+        return (cmp < 0) ? searchRec(node.left, data) : searchRec(node.right, data);
     }
 
     @Override
@@ -87,7 +75,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
             throw new ExceptionIsEmpty("BST is empty");
         }
 
-        this.root = delete(this.root, data);
+        this.root = deleteRec(this.root, data);
     }
 
     private Node delete(Node node, E data) {
@@ -98,9 +86,9 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         int cmp = data.compareTo(node.data);
 
         if (cmp < 0) {
-            node.left = delete(node.left, data);
+            node.left = deleteRec(node.left, data);
         } else if (cmp > 0) {
-            node.right = delete(node.right, data);
+            node.right = deleteRec(node.right, data);
         } else {
 
             if (node.left == null && node.right == null) return null;
@@ -109,7 +97,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
 
             Node successor = findMinNode(node.right);
             node.data = successor.data;
-            node.right = delete(node.right, successor.data);
+            node.right = deleteRec(node.right, successor.data);
         }
         return node;
     }
@@ -179,15 +167,20 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         if (isEmpty()) {
             throw new ItemNoFound("BST is empty");
         }
-
         return findMinNode(this.root).data;
+    }
+
+    public E findMinNode(E data) throws ItemNoFound {
+        validateData(data);
+        search(data);
+        Node subRoot = searchNode(this.root, data);
+        return findMinNode(subRoot).data;
     }
 
     private Node findMinNode(Node node) {
         while (node.left != null) {
             node = node.left;
         }
-
         return node;
     }
 
@@ -195,15 +188,20 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         if (isEmpty()) {
             throw new ItemNoFound("BST is empty");
         }
-
         return findMaxNode(this.root).data;
+    }
+
+    public E findMaxNode(E data) throws ItemNoFound {
+        validateData(data);
+        search(data);
+        Node subRoot = searchNode(this.root, data);
+        return findMaxNode(subRoot).data;
     }
 
     private Node findMaxNode(Node node) {
         while (node.right != null) {
             node = node.right;
         }
-
         return node;
     }
 
