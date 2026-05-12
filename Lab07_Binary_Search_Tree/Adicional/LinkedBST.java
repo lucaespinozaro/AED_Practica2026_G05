@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -290,5 +288,3 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return validateBST(node.left, min, node.data) && validateBST(node.right, node.data, max);
     }
 }
-
-//Borrar
