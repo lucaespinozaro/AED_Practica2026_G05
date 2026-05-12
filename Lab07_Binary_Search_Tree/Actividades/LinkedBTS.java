@@ -92,7 +92,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
 
     private Node delete(Node node, E data) {
         if (node == null) {
-            return null;
+            throw new ItemNoFound("El elemento no se encuentra en el árbol.");
         }
 
         int cmp = data.compareTo(node.data);
@@ -103,25 +103,14 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
             node.right = delete(node.right, data);
         } else {
 
-            if (node.left == null && node.right == null) {
-                return null;
-            }
-
-            if (node.left == null) {
-                return node.right;
-            }
-
-            if (node.right == null) {
-                return node.left;
-            }
+            if (node.left == null && node.right == null) return null;
+            if (node.left == null) return node.right;
+            if (node.right == null) return node.left;
 
             Node successor = findMinNode(node.right);
-
             node.data = successor.data;
-
             node.right = delete(node.right, successor.data);
         }
-
         return node;
     }
 
@@ -132,9 +121,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         StringBuilder sb = new StringBuilder();
-
         inOrder(this.root, sb);
-
         return sb.toString().trim();
     }
 
@@ -144,9 +131,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         inOrder(node.left, sb);
-
         sb.append(node.data).append(" ");
-
         inOrder(node.right, sb);
     }
 
@@ -156,9 +141,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         StringBuilder sb = new StringBuilder();
-
         preOrder(this.root, sb);
-
         return sb.toString().trim();
     }
 
@@ -168,9 +151,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         sb.append(node.data).append(" ");
-
         preOrder(node.left, sb);
-
         preOrder(node.right, sb);
     }
 
@@ -180,9 +161,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         StringBuilder sb = new StringBuilder();
-
         postOrder(this.root, sb);
-
         return sb.toString().trim();
     }
 
@@ -192,9 +171,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         postOrder(node.left, sb);
-
         postOrder(node.right, sb);
-
         sb.append(node.data).append(" ");
     }
 
