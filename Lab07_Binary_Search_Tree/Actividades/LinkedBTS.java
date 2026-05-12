@@ -169,7 +169,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     public E findMinNode(E data) throws ItemNoFound {
         validateData(data);
         search(data);
-        Node subRoot = searchNode(this.root, data);
+        Node subRoot = searchRec(this.root, data);
         return findMinNode(subRoot).data;
     }
 
@@ -190,7 +190,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     public E findMaxNode(E data) throws ItemNoFound {
         validateData(data);
         search(data);
-        Node subRoot = searchNode(this.root, data);
+        Node subRoot = searchRec(this.root, data);
         return findMaxNode(subRoot).data;
     }
 
