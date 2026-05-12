@@ -129,7 +129,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return sb.toString().trim();
     }
 
-    private void preOrder(Node node, StringBuilder sb) {
+    private void preOrderRec(Node node, StringBuilder sb) {
         if (node == null) {
             return;
         }
@@ -149,7 +149,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return sb.toString().trim();
     }
 
-    private void postOrder(Node node, StringBuilder sb) {
+    private void postOrderRec(Node node, StringBuilder sb) {
         if (node == null) {
             return;
         }
