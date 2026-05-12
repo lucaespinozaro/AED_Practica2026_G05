@@ -1,29 +1,32 @@
 public class Prueba {
     public static void main(String[] args) {
-        LinkedBST<Integer> bst = new LinkedBST<>();
+        LinkedBST<Integer> inventario = new LinkedBST<>();
         try {
-            int[] values = {15, 8, 22, 5, 12, 18, 30};
-            for (int v : values) bst.insert(v);
+            int[] codigos = {15, 8, 22, 5, 12, 18, 30};
+            for (int cod : codigos) {
+                inventario.insert(cod);
+            }
+            System.out.println("Productos insertados correctamente.");
+            inventario.inOrder();
 
-            System.out.println("Recorridos:");
-            bst.inOrder(); bst.preOrder(); bst.postOrder();
+            System.out.print("Productos en el rango [10, 25]: ");
+            inventario.searchRange(10, 25);
 
-            System.out.println("\nBúsqueda 12: " + bst.search(12));
+            System.out.println("Número de productos en nodos hoja: " + inventario.countLeaves());
+
+            System.out.print("Inventario en orden descendente: ");
+            inventario.printDescending();
             
-            System.out.println("\nAltura (Iterativa) de 15: " + bst.height(15));
-            System.out.println("Nodos no-hoja: " + bst.countNodes());
-            System.out.println("Amplitud máxima: " + bst.amplitude());
-            System.out.println("Área BST (Iterativa): " + bst.areaBST());
-
-            System.out.println("\nRepresentación Paréntesis:");
-            bst.parenthesize();
-
-            System.out.println("\n¿Es BST válido?: " + bst.isValidBST());
-            System.out.print("Rango [10, 25]: "); bst.searchRange(10, 25);
-            System.out.print("Descendente: "); bst.printDescending();
+            System.out.println("Altura total (iterativa): " + inventario.height(15));
+            System.out.println("Amplitud máxima del árbol: " + inventario.amplitude());
+            System.out.println("Área total del BST: " + inventario.areaBST());
+            System.out.println("¿Es una estructura BST válida?: " + inventario.isValidBST());
+            
+            System.out.println("\nVisualización Parentética:");
+            inventario.parenthesize();
 
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error en la gestión: " + e.getMessage());
         }
     }
 }
