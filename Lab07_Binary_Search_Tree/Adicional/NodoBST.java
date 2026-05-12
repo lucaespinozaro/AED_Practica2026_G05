@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 public class NodoBST {
     public Libro libro;
     public NodoBST izquierdo;
@@ -11,5 +9,3 @@ public class NodoBST {
         this.derecho = null;
     }
 }
-
-//Borrar
