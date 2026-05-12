@@ -259,14 +259,44 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return curr.data;
     }
 
-    public void inOrder() { inOrderRec(root); System.out.println(); }
-    private void inOrderRec(Node n) { if (n!=null) { inOrderRec(n.left); System.out.print(n.data + " "); inOrderRec(n.right); } }
+    public void inOrder() { 
+        inOrderRec(root); 
+        System.out.println(); 
+    }
+    
+    private void inOrderRec(Node n) { 
+        if (n!=null) { 
+            inOrderRec(n.left); 
+            System.out.print(n.data + " "); 
+            inOrderRec(n.right); 
+        } 
+    }
 
-    public void preOrder() { preOrderRec(root); System.out.println(); }
-    private void preOrderRec(Node n) { if (n!=null) { System.out.print(n.data + " "); preOrderRec(n.left); preOrderRec(n.right); } }
+    public void preOrder() { 
+        preOrderRec(root); 
+        System.out.println(); 
+    }
+    
+    private void preOrderRec(Node n) { 
+        if (n!=null) { 
+            System.out.print(n.data + " "); 
+            preOrderRec(n.left); 
+            preOrderRec(n.right); 
+        } 
+    }
 
-    public void postOrder() { postOrderRec(root); System.out.println(); }
-    private void postOrderRec(Node n) { if (n!=null) { postOrderRec(n.left); postOrderRec(n.right); System.out.print(n.data + " "); } }
+    public void postOrder() { 
+        postOrderRec(root); 
+        System.out.println(); 
+    }
+    
+    private void postOrderRec(Node n) { 
+        if (n!=null) { 
+            postOrderRec(n.left); 
+            postOrderRec(n.right); 
+            System.out.print(n.data + " "); 
+        } 
+    }
 
     public void drawBST() { System.out.println(this.toString()); }
     private String drawHelper(Node n, int l) {
