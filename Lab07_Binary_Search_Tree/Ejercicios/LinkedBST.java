@@ -35,8 +35,8 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     private Node insertRec(Node node, E data) throws ItemDuplicated {
         if (node == null) return new Node(data);
         int cmp = data.compareTo(node.data);
-        if (cmp < 0) node.left = insert(node.left, data);
-        else if (cmp > 0) node.right = insert(node.right, data);
+        if (cmp < 0) node.left = insertRec(node.left, data);
+        else if (cmp > 0) node.right = insertRec(node.right, data);
         else throw new ItemDuplicated("Item duplicated");
         return node;
     }
@@ -64,15 +64,15 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     private Node deleteRec(Node node, E data) {
         if (node == null) return null;
         int cmp = data.compareTo(node.data);
-        if (cmp < 0) node.left = delete(node.left, data);
-        else if (cmp > 0) node.right = delete(node.right, data);
+        if (cmp < 0) node.left = deleteRec(node.left, data);
+        else if (cmp > 0) node.right = deleteRec(node.right, data);
         else {
             if (node.left == null) return node.right;
             if (node.right == null) return node.left;
             Node min = node.right;
             while (min.left != null) min = min.left;
             node.data = min.data;
-            node.right = delete(node.right, min.data);
+            node.right = deleteRec(node.right, min.data);
         }
         return node;
     }
@@ -175,16 +175,16 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     public void parenthesize() {
-        parenthesize(this.root, 0);
+        parenthesizeNode(this.root, 0);
     }
 
-    private void parenthesize(Node node, int level) {
+    private void parenthesizeNode(Node node, int level) {
         if (node == null) return;
         String tab = "    ".repeat(level);
         if (node.left != null || node.right != null) {
             System.out.println(tab + node.data + " (");
-            parenthesize(node.left, level + 1);
-            parenthesize(node.right, level + 1);
+            parenthesizeNode(node.left, level + 1);
+            parenthesizeNode(node.right, level + 1);
             System.out.println(tab + ")");
         } else {
             System.out.println(tab + node.data);
@@ -192,29 +192,29 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     public boolean isValidBST() {
-        return isValidBST(this.root, null, null);
+        return validateBST(this.root, null, null);
     }
 
-    private boolean isValidBST(Node node, E min, E max) {
+    private boolean validateBST(Node node, E min, E max) {
         if (node == null) return true;
         if (min != null && node.data.compareTo(min) <= 0) return false;
         if (max != null && node.data.compareTo(max) >= 0) return false;
-        return isValidBST(node.left, min, node.data) && isValidBST(node.right, node.data, max);
+        return validateBST(node.left, min, node.data) && validateBST(node.right, node.data, max);
     }
 
     public List<E> searchRange(E min, E max) {
         validateData(min);
         validateData(max);
         List<E> result = new ArrayList<>();
-        searchRange(this.root, min, max, result);
+        searchRangeHelper(this.root, min, max, result);
         return result;
     }
 
-    private void searchRange(Node node, E min, E max, List<E> result) {
+    private void searchRangeHelper(Node node, E min, E max, List<E> result) {
         if (node == null) return;
-        if (node.data.compareTo(min) > 0) searchRange(node.left, min, max, result);
+        if (node.data.compareTo(min) > 0) searchRangeHelper(node.left, min, max, result);
         if (node.data.compareTo(min) >= 0 && node.data.compareTo(max) <= 0) result.add(node.data);
-        if (node.data.compareTo(max) < 0) searchRange(node.right, min, max, result);
+        if (node.data.compareTo(max) < 0) searchRangeHelper(node.right, min, max, result);
     }
 
     public int countLeaves() {
@@ -234,15 +234,15 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     public void printDescending() {
-        printDescending(this.root);
+        printDescHelper(this.root);
         System.out.println();
     }
 
-    private void printDescending(Node node) {
+    private void printDescHelper(Node node) {
         if (node == null) return;
-        printDescending(node.right);
+        printDescHelper(node.right);
         System.out.print(node.data + " ");
-        printDescending(node.left);
+        printDescHelper(node.left);
     }
 
     public E getMin() throws ExceptionIsEmpty {
@@ -259,20 +259,31 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return curr.data;
     }
 
-    public void inOrder() { inOrder(root); System.out.println(); }
-    private void inOrder(Node n) { if (n!=null) { inOrder(n.left); System.out.print(n.data + " "); inOrder(n.right); } }
+    public void inOrder() { inOrderRec(root); System.out.println(); }
+    private void inOrderRec(Node n) { if (n!=null) { inOrderRec(n.left); System.out.print(n.data + " "); inOrderRec(n.right); } }
 
-    public void preOrder() { preOrder(root); System.out.println(); }
-    private void preOrder(Node n) { if (n!=null) { System.out.print(n.data + " "); preOrder(n.left); preOrder(n.right); } }
+    public void preOrder() { preOrderRec(root); System.out.println(); }
+    private void preOrderRec(Node n) { if (n!=null) { System.out.print(n.data + " "); preOrderRec(n.left); preOrderRec(n.right); } }
 
-    public void postOrder() { postOrder(root); System.out.println(); }
-    private void postOrder(Node n) { if (n!=null) { postOrder(n.left); postOrder(n.right); System.out.print(n.data + " "); } }
+    public void postOrder() { postOrderRec(root); System.out.println(); }
+    private void postOrderRec(Node n) { if (n!=null) { postOrderRec(n.left); postOrderRec(n.right); System.out.print(n.data + " "); } }
 
-    public void drawBST() { drawBST(this.root, 0); }
-    private void drawBST(Node n, int l) {
+    public void drawBST() { System.out.println(this.toString()); }
+    private String drawHelper(Node n, int l) {
         if (n == null) return;
-        drawBST(n.right, l + 1);
-        System.out.println("    ".repeat(l) + "[" + n.data + "]");
-        drawBST(n.left, l + 1);
+        StringBuilder sb = new StringBuilder();
+        sb.append(drawHelper(n.right, l + 1));
+        
+        String indent = "      ".repeat(l);
+        String connector = (l > 0) ? "└── " : "";
+        sb.append(indent).append(connector).append("[").append(n.data).append("]\n");
+        
+        sb.append(drawHelper(n.left, l + 1));
+        return sb.toString();
     }
+
+    @Override
+    public String toString() {
+        if (isEmpty()) return "Árbol vació";
+        return drawHelper(this.root, 0);
 }
