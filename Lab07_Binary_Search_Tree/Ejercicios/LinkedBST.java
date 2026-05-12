@@ -83,35 +83,29 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     public int countAllNodes() {
-        int count = 0;
-        if (isEmpty()) return 0;
-        LinkedQueue<Node> q = new LinkedQueue<>();
-        q.enqueue(root);
-        while (!q.isEmpty()) {
-            try {
-                Node n = q.dequeue();
-                count++;
-                if (n.left != null) q.enqueue(n.left);
-                if (n.right != null) q.enqueue(n.right);
-            } catch (Exception e) {}
+        return countAllNodesRec(this.root);
+    }
+
+    private int countAllNodesRec(Node node) {
+        if (node == null) {
+            return 0;
         }
-        return count;
+        return 1 + countAllNodesRec(node.left) + countAllNodesRec(node.right);
     }
 
     public int countNodes() {
-        int count = 0;
-        if (isEmpty()) return 0;
-        LinkedQueue<Node> q = new LinkedQueue<>();
-        q.enqueue(root);
-        while (!q.isEmpty()) {
-            try {
-                Node n = q.dequeue();
-                if (n.left != null || n.right != null) count++;
-                if (n.left != null) q.enqueue(n.left);
-                if (n.right != null) q.enqueue(n.right);
-            } catch (Exception e) {}
+        return countNodesRec(this.root);
+    }
+
+    private int countNodesRec(Node node) {
+        if (node == null) {
+            return 0;
         }
-        return count;
+
+        if (node.left == null && node.right == null) {
+            return 0;
+        }
+        return 1 + countNodesRec(node.left) + countNodesRec(node.right);
     }
 
     public int height(E data) {
