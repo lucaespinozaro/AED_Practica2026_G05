@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 public class ItemDuplicated extends Exception {
     public ItemDuplicated(String msg) {
         super(msg);
@@ -9,5 +7,3 @@ public class ItemDuplicated extends Exception {
         super();
     }
 }
-
-//Borrar
