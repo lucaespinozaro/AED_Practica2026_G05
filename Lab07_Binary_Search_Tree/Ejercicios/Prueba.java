@@ -42,9 +42,9 @@ public class Prueba {
             inventario.search(999);
 
         } catch (ItemDuplicated | ItemNoFound | ExceptionIsEmpty e) {
-            System.out.println("NOTIFICACIÓN DE SISTEMA: " + e.getMessage());
+            System.out.println("Notificación del Sistema: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("ERROR CRÍTICO: " + e.getMessage());
+            System.out.println("Error Crítico: " + e.getMessage());
         }
     }
     
