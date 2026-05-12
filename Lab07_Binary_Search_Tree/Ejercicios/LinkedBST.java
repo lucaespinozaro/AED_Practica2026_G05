@@ -136,17 +136,13 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return h;
     }
 
-    public int amplitude(int nivel) {
-        if (isEmpty()) return 0;
-        int altura = height(this.root.data);
-        if (nivel < 0) return 0;
-        
+    public int amplitude() {
+        if (isEmpty()) return 0;  
         int max = 0;
         LinkedQueue<Node> q = new LinkedQueue<>();
         q.enqueue(root);
-        int nivelActual = 0;
         
-        while (!q.isEmpty() && nivelActual <= altura) {
+        while (!q.isEmpty()) {
             int size = q.size();
             if (size > max) max = size;
             for (int i = 0; i < size; i++) {
