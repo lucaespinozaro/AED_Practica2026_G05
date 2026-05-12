@@ -31,7 +31,7 @@ public class LinkedQueue<E> {
     }
 
     public E dequeue() throws ExceptionIsEmpty {
-        if (isEmpty()) throw new ExceptionIsEmpty("Queue empty");
+        if (isEmpty()) throw new ExceptionIsEmpty("Queue vacia");
         E data = this.front.data;
         this.front = this.front.next;
         if (this.front == null) this.rear = null;
