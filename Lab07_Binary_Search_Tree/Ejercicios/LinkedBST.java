@@ -199,18 +199,19 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return isValidBST(node.left, min, node.data) && isValidBST(node.right, node.data, max);
     }
 
-    public void searchRange(E min, E max) {
+    public List<E> searchRange(E min, E max) {
         validateData(min);
         validateData(max);
-        searchRange(this.root, min, max);
-        System.out.println();
+        List<E> result = new ArrayList<>();
+        searchRange(this.root, min, max, result);
+        return result;
     }
 
-    private void searchRange(Node node, E min, E max) {
+    private void searchRange(Node node, E min, E max, List<E> result) {
         if (node == null) return;
-        if (node.data.compareTo(min) > 0) searchRange(node.left, min, max);
-        if (node.data.compareTo(min) >= 0 && node.data.compareTo(max) <= 0) System.out.print(node.data + " ");
-        if (node.data.compareTo(max) < 0) searchRange(node.right, min, max);
+        if (node.data.compareTo(min) > 0) searchRange(node.left, min, max, result);
+        if (node.data.compareTo(min) >= 0 && node.data.compareTo(max) <= 0) result.add(node.data);
+        if (node.data.compareTo(max) < 0) searchRange(node.right, min, max, result);
     }
 
     public int countLeaves() {
