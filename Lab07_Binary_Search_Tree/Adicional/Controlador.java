@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 import java.util.List;
 
 public class Controlador {
@@ -33,5 +31,3 @@ public class Controlador {
         return arbol.devolverLibro(new Libro(isbn, "", "", 0, ""));
     }
 }
-
-//Borrar
