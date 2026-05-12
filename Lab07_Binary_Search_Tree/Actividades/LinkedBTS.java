@@ -100,23 +100,27 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
 
     @Override
     public String toString() {
+        return inOrder();
+    }
+
+    public String inOrder() {
         if (isEmpty()) {
             return "";
         }
 
         StringBuilder sb = new StringBuilder();
-        inOrder(this.root, sb);
+        inOrderRec(this.root, sb);
         return sb.toString().trim();
     }
-
-    private void inOrder(Node node, StringBuilder sb) {
+    
+    private void RecinOrder(Node node, StringBuilder sb) {
         if (node == null) {
             return;
         }
 
-        inOrder(node.left, sb);
+        inOrderRec(node.left, sb);
         sb.append(node.data).append(" ");
-        inOrder(node.right, sb);
+        inOrderRec(node.right, sb);
     }
 
     public String preOrder() {
@@ -125,7 +129,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         StringBuilder sb = new StringBuilder();
-        preOrder(this.root, sb);
+        preOrderRec(this.root, sb);
         return sb.toString().trim();
     }
 
@@ -135,8 +139,8 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         sb.append(node.data).append(" ");
-        preOrder(node.left, sb);
-        preOrder(node.right, sb);
+        preOrderRec(node.left, sb);
+        preOrderRec(node.right, sb);
     }
 
     public String postOrder() {
@@ -145,7 +149,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         }
 
         StringBuilder sb = new StringBuilder();
-        postOrder(this.root, sb);
+        postOrderRec(this.root, sb);
         return sb.toString().trim();
     }
 
@@ -154,8 +158,8 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
             return;
         }
 
-        postOrder(node.left, sb);
-        postOrder(node.right, sb);
+        postOrderRec(node.left, sb);
+        postOrderRec(node.right, sb);
         sb.append(node.data).append(" ");
     }
 
