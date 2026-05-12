@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -471,5 +469,3 @@ public class VentanaPrincipal extends JFrame {
         arbol.prestarLibro(new Libro("ISBN-600", "", "", 0, ""));
     }
 }
-
-//Borrar
