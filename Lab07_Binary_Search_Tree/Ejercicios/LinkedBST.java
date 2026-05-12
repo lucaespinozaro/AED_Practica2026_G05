@@ -29,10 +29,10 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     @Override
     public void insert(E data) throws ItemDuplicated {
         validateData(data);
-        this.root = insert(this.root, data);
+        this.root = insertRec(this.root, data);
     }
 
-    private Node insert(Node node, E data) throws ItemDuplicated {
+    private Node insertRec(Node node, E data) throws ItemDuplicated {
         if (node == null) return new Node(data);
         int cmp = data.compareTo(node.data);
         if (cmp < 0) node.left = insert(node.left, data);
@@ -58,24 +58,21 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     public void delete(E data) throws ExceptionIsEmpty, ItemNotFound {
         validateData(data);
         if (isEmpty()) throw new ExceptionIsEmpty("BST empty");
-        boolean[] found = {false};
-        this.root = delete(this.root, data, found);
-        if (!found[0]) throw new ItemNotFound("Item not found");
+        this.root = deleteRec(this.root, data);
     }
 
-    private Node delete(Node node, E data, boolean[] found) {
+    private Node deleteRec(Node node, E data) {
         if (node == null) return null;
         int cmp = data.compareTo(node.data);
-        if (cmp < 0) node.left = delete(node.left, data, found);
-        else if (cmp > 0) node.right = delete(node.right, data, found);
+        if (cmp < 0) node.left = delete(node.left, data);
+        else if (cmp > 0) node.right = delete(node.right, data);
         else {
-            found[0] = true;
             if (node.left == null) return node.right;
             if (node.right == null) return node.left;
             Node min = node.right;
             while (min.left != null) min = min.left;
             node.data = min.data;
-            node.right = delete(node.right, min.data, new boolean[1]);
+            node.right = delete(node.right, min.data);
         }
         return node;
     }
@@ -145,12 +142,17 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return h;
     }
 
-    public int amplitude() {
+    public int amplitude(int nivel) {
         if (isEmpty()) return 0;
+        int altura = height(this.root.data);
+        if (nivel < 0) return 0;
+        
         int max = 0;
         LinkedQueue<Node> q = new LinkedQueue<>();
         q.enqueue(root);
-        while (!q.isEmpty()) {
+        int nivelActual = 0;
+        
+        while (!q.isEmpty() && nivelActual <= altura) {
             int size = q.size();
             if (size > max) max = size;
             for (int i = 0; i < size; i++) {
@@ -160,6 +162,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
                     if (n.right != null) q.enqueue(n.right);
                 } catch (Exception e) {}
             }
+            nivelActual++;
         }
         return max;
     }
