@@ -5,14 +5,9 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         private Node right;
 
         public Node(E data) {
-            this(data, null, null);
-        }
-
-        public Node(E data, Node left, Node right) {
-            if (data == null) throw new IllegalArgumentException("Data null");
             this.data = data;
-            this.left = left;
-            this.right = right;
+            this.left = null;
+            this.right = null;
         }
     }
 
@@ -51,6 +46,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         validateData(data);
         Node current = this.root;
         while (current != null) {
+            System.out.println("Visitando nodo: " + current.data);
             int cmp = data.compareTo(current.data);
             if (cmp == 0) return current.data;
             current = (cmp < 0) ? current.left : current.right;
@@ -121,8 +117,8 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return count;
     }
 
-    public int height(E data) throws ItemNotFound {
-        validateData(data);
+    public int height(E data) {
+        if (data == null) return -1;
         Node current = this.root;
         Node target = null;
         while (current != null) {
@@ -130,14 +126,14 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
             if (cmp == 0) { target = current; break; }
             current = (cmp < 0) ? current.left : current.right;
         }
-        if (target == null) throw new ItemNotFound("Item not found");
-        
+        if (target == null) return -1;
+
         int h = -1;
         LinkedQueue<Node> q = new LinkedQueue<>();
         q.enqueue(target);
         while (!q.isEmpty()) {
             h++;
-            int size = countInQueue(q);
+            int size = q.size();
             for (int i = 0; i < size; i++) {
                 try {
                     Node n = q.dequeue();
@@ -149,29 +145,13 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return h;
     }
 
-    private int countInQueue(LinkedQueue<Node> q) {
-        int count = 0;
-        LinkedQueue<Node> temp = new LinkedQueue<>();
-        while (!q.isEmpty()) {
-            try {
-                Node n = q.dequeue();
-                count++;
-                temp.enqueue(n);
-            } catch (Exception e) {}
-        }
-        while (!temp.isEmpty()) {
-            try { q.enqueue(temp.dequeue()); } catch (Exception e) {}
-        }
-        return count;
-    }
-
     public int amplitude() {
         if (isEmpty()) return 0;
         int max = 0;
         LinkedQueue<Node> q = new LinkedQueue<>();
         q.enqueue(root);
         while (!q.isEmpty()) {
-            int size = countInQueue(q);
+            int size = q.size();
             if (size > max) max = size;
             for (int i = 0; i < size; i++) {
                 try {
@@ -187,8 +167,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     public int areaBST() {
         if (isEmpty()) return 0;
         int leaves = countLeaves();
-        int h = 0;
-        try { h = height(root.data); } catch (Exception e) {}
+        int h = height(root.data);
         return leaves * h;
     }
 
@@ -260,6 +239,20 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         printDescending(node.right);
         System.out.print(node.data + " ");
         printDescending(node.left);
+    }
+
+    public E getMin() throws ExceptionIsEmpty {
+        if (isEmpty()) throw new ExceptionIsEmpty();
+        Node curr = root;
+        while (curr.left != null) curr = curr.left;
+        return curr.data;
+    }
+
+    public E getMax() throws ExceptionIsEmpty {
+        if (isEmpty()) throw new ExceptionIsEmpty();
+        Node curr = root;
+        while (curr.right != null) curr = curr.right;
+        return curr.data;
     }
 
     public void inOrder() { inOrder(root); System.out.println(); }
