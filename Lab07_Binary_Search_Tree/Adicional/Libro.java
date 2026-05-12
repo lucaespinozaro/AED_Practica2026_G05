@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 public class Libro implements Comparable<Libro> {
     private String isbn;
     private String titulo;
@@ -41,5 +39,3 @@ public class Libro implements Comparable<Libro> {
                 disponible ? "Disponible" : "Prestado");
     }
 }
-
-//Borrar
