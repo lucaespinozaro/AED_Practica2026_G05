@@ -57,14 +57,14 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     }
 
     private Node searchRec(Node node, E data) {
-        if (node == null) { return false; }
+        if (node == null) { return null; }
         int cmp = data.compareTo(node.data);
         if (cmp == 0) return node;
         return (cmp < 0) ? searchRec(node.left, data) : searchRec(node.right, data);
     }
 
     @Override
-    public void delete(E data) throws ExceptionIsEmpty {
+    public void delete(E data) throws ExceptionIsEmpty, ItemNoFound {
         validateData(data);
 
         if (isEmpty()) {
@@ -74,7 +74,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         this.root = deleteRec(this.root, data);
     }
 
-    private Node delete(Node node, E data) {
+    private Node deleteRec(Node node, E data) throws ItemNoFound {
         if (node == null) {
             throw new ItemNoFound("El elemento no se encuentra en el árbol.");
         }
