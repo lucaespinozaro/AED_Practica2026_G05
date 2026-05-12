@@ -305,4 +305,5 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
     public String toString() {
         if (isEmpty()) return "Árbol vació";
         return drawHelper(this.root, 0);
+    }
 }
