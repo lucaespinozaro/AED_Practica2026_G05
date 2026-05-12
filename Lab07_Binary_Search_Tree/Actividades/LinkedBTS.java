@@ -5,10 +5,6 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         private Node right;
 
         public Node(E data) {
-            if (data == null) {
-                throw new IllegalArgumentException("Data null");
-            }
-
             this.data = data;
             this.left = null;
             this.right = null;
