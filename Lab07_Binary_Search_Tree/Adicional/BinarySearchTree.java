@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 public interface BinarySearchTree<E extends Comparable<E>> {
     void insert(E data) throws ItemDuplicated;
 
@@ -9,5 +7,3 @@ public interface BinarySearchTree<E extends Comparable<E>> {
 
     boolean isEmpty();
 }
-
-//Borrar
