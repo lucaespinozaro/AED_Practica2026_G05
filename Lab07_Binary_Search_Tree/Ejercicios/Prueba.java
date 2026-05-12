@@ -8,9 +8,11 @@ public class Prueba {
                 inventario.insert(codigo);
             }
 
-            System.out.print("PreOrder: "); System.out.println(inventario.preOrder());
-            System.out.print("InOrder: "); System.out.println(inventario);
-            System.out.print("PostOrder: "); System.out.println(inventario.postOrder());
+            System.out.print("PreOrder: " + inventario.preOrder());
+            System.out.print("InOrder: " + inventario.inOrder()); 
+            System.out.print("PostOrder: " + inventario.postOrder());
+
+            inventario.drawBST();
 
             Integer productoEncontrado = inventario.search(12);
             System.out.println("Producto localizado: " + productoEncontrado);
@@ -27,7 +29,8 @@ public class Prueba {
             inventario.parenthesize();
 
             inventario.delete(8);
-            System.out.println("Inventario actualizado: " + inventario);
+            System.out.println("Inventario actualizado: ");
+            inventario.drwaBST();
 
             LinkedBST<Integer> inventarioSucursal = new LinkedBST<>();
             inventarioSucursal.insert(10); inventarioSucursal.insert(5); inventarioSucursal.insert(15);
