@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 public class ItemNotFound extends Exception {
     public ItemNotFound(String msg) {
         super(msg);
@@ -9,5 +7,3 @@ public class ItemNotFound extends Exception {
         super();
     }
 }
-
-//Borrar
