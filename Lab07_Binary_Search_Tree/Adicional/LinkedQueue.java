@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 public class LinkedQueue<E> {
     private QueueNode<E> front;
     private QueueNode<E> rear;
@@ -50,5 +48,3 @@ class QueueNode<E> {
         this.next = null;
     }
 }
-
-//Borrar
