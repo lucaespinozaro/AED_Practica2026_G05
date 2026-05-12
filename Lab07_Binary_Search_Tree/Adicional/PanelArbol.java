@@ -1,5 +1,3 @@
-package EjercicioAdicional;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -175,5 +173,3 @@ public class PanelArbol extends JPanel {
 
     public void actualizar() { repaint(); }
 }
-
-//Borrar
