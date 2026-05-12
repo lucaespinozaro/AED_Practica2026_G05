@@ -113,7 +113,7 @@ public class LinkedBST<E extends Comparable<E>> implements BinarySearchTree<E> {
         return sb.toString().trim();
     }
     
-    private void RecinOrder(Node node, StringBuilder sb) {
+    private void inOrderRec(Node node, StringBuilder sb) {
         if (node == null) {
             return;
         }
