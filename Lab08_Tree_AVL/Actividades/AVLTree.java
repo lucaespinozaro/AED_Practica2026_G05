@@ -1,8 +1,8 @@
-public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
+public class AVLTree<E extends Comparable<E>> extends BSTree<E> {    
     private boolean height;
-    
+
     class NodeAVL extends Node<E> {
-        protected int bf; 
+        protected int bf;
 
         public NodeAVL(E data) {
             super(data);
@@ -12,6 +12,24 @@ public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
         @Override
         public String toString() {
             return data.toString() + "(" + bf + ")";
+        }
+    }
+
+    public boolean search(E x) {
+        return searchRec(this.root, x);
+    }
+
+    private boolean searchRec(Node<E> node, E x) {
+        if (node == null) {
+            return false;
+        }
+        int cmp = x.compareTo(node.data);
+        if (cmp < 0) {
+            return searchRec(node.left, x);
+        } else if (cmp > 0) {
+            return searchRec(node.right, x);
+        } else {
+            return true;
         }
     }
 
@@ -221,7 +239,7 @@ public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
 
     public void breadthFirst() {
         int h = height((NodeAVL) root);
-        for (int i = 0; i < h; i++) { 
+        for (int i = 0; i < h; i++) {
             printGivenLevel((NodeAVL) root, i);
         }
         System.out.println();
@@ -239,19 +257,6 @@ public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
         } else if (level > 0) {
             printGivenLevel((NodeAVL) node.left, level - 1);
             printGivenLevel((NodeAVL) node.right, level - 1);
-        }
-    }
-
-    public void preOrder() {
-        preOrderRec((NodeAVL) root);
-        System.out.println();
-    }
-
-    private void preOrderRec(NodeAVL node) {
-        if (node != null) {
-            System.out.print(node.data + "(" + node.bf + ") ");
-            preOrderRec((NodeAVL) node.left);
-            preOrderRec((NodeAVL) node.right);
         }
     }
 
