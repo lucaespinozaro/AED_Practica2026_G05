@@ -1,5 +1,3 @@
-package AVL;
-
 public class BSTree<E extends Comparable<E>> {
     protected Node root;
 
