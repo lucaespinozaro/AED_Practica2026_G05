@@ -1,7 +1,7 @@
 public class TestAVL {
     public static void main(String[] args) {
         AVLTree<Integer> tree = new AVLTree<>();
-        System.out.println("--- EJECUTANDO CASOS DE PRUEBA EXIGIDOS (MÍNIMO 8 OPERACIONES) ---");
+        System.out.println("--- Ejecutando Casos de Prueba Exigidos ---");
         
         try {
             System.out.println("\n-> Insertando 50, 40, 30 (Gatilla RSR en 50)");
@@ -23,24 +23,25 @@ public class TestAVL {
             tree.insert(65);
             System.out.print("Preorden actual: "); tree.preOrder();
 
-            System.out.println("\n-> Insertando elementos adicionales para forzar el segundo set de balances (25, 22, 80, 90, 38)");
+            System.out.println("\n-> Insertando elementos adicionales para forzar segundos balances (25, 22, 80, 90, 38)");
             tree.insert(25);
             tree.insert(22); 
             tree.insert(80);
             tree.insert(90); 
             tree.insert(38); 
             
-            System.out.println("\n==========================================");
-            System.out.println("Resultados de los Recorridos Finales");
-            System.out.println("==========================================");
+            System.out.println("--- Resultados de los Recorridos Finales con Factores de Equilibrio ---");
 
-            System.out.print("Recorrido Inorden (Validación BST ordenado): ");
-            tree.inOrder();
-
-            System.out.print("EJERCICIO 6: Recorrido en Preorden: ");
+            System.out.print("Ejercicio 6: Recorrido en Preorden: ");
             tree.preOrder();
 
-            System.out.print("EJERCICIOS 4 y 5: Recorrido por Amplitud (Por Niveles Base 0): ");
+            System.out.print("Ejercicios 4 y 5: Recorrido por Amplitud (Por Niveles Base 0): ");
+            tree.breadthFirst();
+
+            System.out.println("\n--- Prueba de Eliminación (Punto 3) ---");
+            System.out.println("Eliminando nodo 50 (Caso: Nodo con dos hijos)...");
+            tree.remove(50);
+            System.out.print("Post-Eliminación por Amplitud: ");
             tree.breadthFirst();
 
             System.out.println("\n-> Intentando insertar un nodo duplicado (60) para verificar validación:");
