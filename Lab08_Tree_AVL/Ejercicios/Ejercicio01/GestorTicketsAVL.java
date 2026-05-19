@@ -22,23 +22,17 @@ public class GestorTicketsAVL {
             System.out.println("\n-> Insertando ticket 25 (Provoca Rotación Doble Izquierda - Derecha / RDL)");
             gestor.insert(25);
             System.out.print("Estado final de inserciones (Amplitud): "); gestor.breadthFirst();
-
-            System.out.println("\n==================================================================");
-            System.out.println("Evidencia de los Recorridos Configurados");
-            System.out.println("==================================================================");
+            
+            System.out.println("--- Evidencia de los Recorridos Configurados ---");
             System.out.print("Recorrido en Inorden (Validación BST): "); gestor.inOrder();
             System.out.print("Recorrido en Preorden: "); gestor.preOrder();
             System.out.print("Recorrido por Amplitud (BFS): "); gestor.breadthFirst();
 
-            System.out.println("\n==================================================================");
-            System.out.println("Operaciones de Búsqueda");
-            System.out.println("==================================================================");
+            System.out.println("--- Operaciones de Búsqueda ---");
             System.out.println("Buscando ticket 20: " + (gestor.search(20) ? "Encontrado" : "No Encontrado"));
             System.out.println("Buscando ticket 60: " + (gestor.search(60) ? "Encontrado" : "No Encontrado"));
 
-            System.out.println("\n==================================================================");
-            System.out.println("Operaciones de Elimiación y Rebalanceo");
-            System.out.println("==================================================================");
+            System.out.println("--- Operaciones de Elimiación y Rebalanceo ---");
             
             System.out.println("-> Eliminando ticket 10 (Nodo Hoja)");
             gestor.remove(10);
@@ -52,9 +46,7 @@ public class GestorTicketsAVL {
             gestor.remove(30);
             System.out.print("Amplitud post-eliminación 30: "); gestor.breadthFirst();
 
-            System.out.println("\n==================================================================");
             System.out.print("Recorrido Inorden Final del Sistema: "); gestor.inOrder();
-            System.out.println("==================================================================");
 
         } catch (ItemDuplicated e) {
             System.out.println(e.getMessage());
