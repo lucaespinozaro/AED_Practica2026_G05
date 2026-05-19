@@ -1,4 +1,4 @@
-public class ColaAtencionClinicaAVL {
+public class ColaTurnosClinicaAVL {
     public static void main(String[] args) {
         AVLTree<Integer> cola = new AVLTree<>();
 
@@ -18,15 +18,15 @@ public class ColaAtencionClinicaAVL {
             cola.insert(60);
             System.out.print("Estado de la cola (Amplitud): "); cola.breadthFirst();
 
-            System.out.println("--- Recorridos de Revisión de Turnos ---");
+            System.out.println("\n--- Recorridos de Revisión de Turnos ---");
             System.out.print("Recorrido Inorden (Turnos Ordenados): "); cola.inOrder();
             System.out.print("Recorrido por Amplitud (Estructura AVL): "); cola.breadthFirst();
 
-            System.out.println("--- Búsqueda de Pacientes por Turno ---");
+            System.out.println("\n--- Búsqueda de Pacientes por Turno ---");
             System.out.println("Buscando turno 30: " + (cola.search(30) ? "Paciente en Espera" : "No Encontrado"));
             System.out.println("Buscando turno 99: " + (cola.search(99) ? "Paciente en Espera" : "No Encontrado"));
 
-            System.out.println("--- Atención y Eliminación de Turnos ---");
+            System.out.println("\n--- Atención y Eliminación de Turnos ---");
             System.out.println("-> Atendiendo y eliminando turno 10 (Nodo Hoja)");
             cola.remove(10);
             System.out.print("Estado de la cola (Inorden): "); cola.inOrder();
