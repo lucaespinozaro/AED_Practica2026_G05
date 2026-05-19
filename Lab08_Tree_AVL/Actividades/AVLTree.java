@@ -246,6 +246,19 @@ public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
         }
     }
 
+    public void inOrder() {
+        inOrderRec((NodeAVL) root);
+        System.out.println();
+    }
+
+    private void inOrderRec(NodeAVL node) {
+        if (node != null) {
+            inOrderRec((NodeAVL) node.left);
+            System.out.print(node.data + "(" + node.bf + ") ");
+            inOrderRec((NodeAVL) node.right);
+        }
+    }
+
     public void breadthFirst() {
         int h = height(root);
         for (int i = 0; i < h; i++) {
