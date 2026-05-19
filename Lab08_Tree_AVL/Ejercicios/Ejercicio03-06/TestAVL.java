@@ -1,5 +1,3 @@
-package AVL;
-
 public class TestAVL {
     public static void main(String[] args) {
         AVLTree<Integer> tree = new AVLTree<>();
