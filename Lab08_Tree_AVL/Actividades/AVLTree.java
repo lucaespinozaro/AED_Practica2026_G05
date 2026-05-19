@@ -16,6 +16,7 @@ public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
     }
 
     public void insert(E x) throws ItemDuplicated {
+        if (x == null) throw new IllegalArgumentException("El dato a insertar no puede ser nulo.");
         this.height = false;
         this.root = insertRec(x, (NodeAVL) this.root);
     }
@@ -160,7 +161,9 @@ public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
         return node;
     }
 
-    public void remove(E x) {
+    public void remove(E x) throws ItemNotFound {
+        if (x == null) throw new IllegalArgumentException("El dato a eliminar no puede ser nulo.");
+        if (!search(x)) throw new ItemNotFound(x + " no se encuentra en el arbol...");
         this.height = false;
         this.root = removeRec(x, (NodeAVL) this.root);
     }
