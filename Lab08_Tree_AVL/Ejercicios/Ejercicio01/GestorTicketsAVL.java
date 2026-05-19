@@ -23,16 +23,16 @@ public class GestorTicketsAVL {
             gestor.insert(25);
             System.out.print("Estado final de inserciones (Amplitud): "); gestor.breadthFirst();
             
-            System.out.println("--- Evidencia de los Recorridos Configurados ---");
+            System.out.println("\n--- Evidencia de los Recorridos Configurados ---");
             System.out.print("Recorrido en Inorden (Validación BST): "); gestor.inOrder();
             System.out.print("Recorrido en Preorden: "); gestor.preOrder();
             System.out.print("Recorrido por Amplitud (BFS): "); gestor.breadthFirst();
 
-            System.out.println("--- Operaciones de Búsqueda ---");
+            System.out.println("\n--- Operaciones de Búsqueda ---");
             System.out.println("Buscando ticket 20: " + (gestor.search(20) ? "Encontrado" : "No Encontrado"));
             System.out.println("Buscando ticket 60: " + (gestor.search(60) ? "Encontrado" : "No Encontrado"));
 
-            System.out.println("--- Operaciones de Elimiación y Rebalanceo ---");
+            System.out.println("\n--- Operaciones de Elimiación y Rebalanceo ---");
             
             System.out.println("-> Eliminando ticket 10 (Nodo Hoja)");
             gestor.remove(10);
