@@ -267,3 +267,12 @@ public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
         System.out.println();
     }
 
+    private void printLevel(NodeAVL node, int level) {
+        if (node == null) return;
+        if (level == 0) System.out.print(node.data + "(" + node.bf + ") ");
+        else {
+            printLevel((NodeAVL) node.left, level - 1);
+            printLevel((NodeAVL) node.right, level - 1);
+        }
+    }
+}
