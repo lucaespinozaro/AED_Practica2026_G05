@@ -21,15 +21,15 @@ public class RegistroProductosAVL {
             almacen.insert(25);
             System.out.print("Estado del almacén (Amplitud): "); almacen.breadthFirst();
 
-            System.out.println("--- Recorridos del Inventario Actual ---");
+            System.out.println("\n--- Recorridos del Inventario Actual ---");
             System.out.print("Recorrido Inorden (Productos Ordenados): "); almacen.inOrder();
             System.out.print("Recorrido por Amplitud (Estructura AVL): "); almacen.breadthFirst();
 
-            System.out.println("--- Control de Disponibilidad (Búsqueda) ---");
+            System.out.println("\n--- Control de Disponibilidad (Búsqueda) ---");
             System.out.println("Buscando producto 150: " + (almacen.search(150) ? "Disponible" : "No Disponible"));
             System.out.println("Buscando producto 999: " + (almacen.search(999) ? "Disponible" : "No Disponible"));
 
-            System.out.println("--- Baja de Productos (Eliminación) ---");
+            System.out.println("\n--- Baja de Productos (Eliminación) ---");
             System.out.println("-> Eliminando producto 150 (Nodo Hoja)");
             almacen.remove(150);
             System.out.print("Inventario resultante (Inorden): "); almacen.inOrder();
