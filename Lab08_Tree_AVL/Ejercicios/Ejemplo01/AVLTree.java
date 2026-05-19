@@ -1,5 +1,3 @@
-package AVL;
-
 public class AVLTree<E extends Comparable<E>> extends BSTree<E> {
     private boolean height;
 
