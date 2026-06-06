@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-l
+
 public class Biblioteca {
     private BTree<Libro> arbolLibros;
     private int totalLibros;
