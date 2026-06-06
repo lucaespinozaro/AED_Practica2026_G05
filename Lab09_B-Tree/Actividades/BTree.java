@@ -87,4 +87,61 @@ public class BTree<E extends Comparable<E>> {
         current.count--;
         return median;
     }
+
+    @Override
+    public String toString() {
+        String s = "";
+        if (isEmpty()) {
+            s += "BTree is empty...";
+        } else {
+            s = String.format("%-10s\t%-20s\t%-10s\t%-10s\n", "Id.Nodo", "Claves Nodo", "Id.Padre", "Id.Hijos");
+            s += writeTree(this.root, null);
+        }
+        return s;
+    }
+
+    private String writeTree(BNode<E> current, BNode<E> parent) {
+        if (current == null) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        String idNodo = String.valueOf(current.getIdNode());
+        
+        StringBuilder keysSb = new StringBuilder();
+        keysSb.append("(");
+        for (int i = 0; i < current.count; i++) {
+            keysSb.append(current.keys.get(i));
+            if (i < current.count - 1) {
+                keysSb.append(", ");
+            }
+        }
+        keysSb.append(")");
+        String clavesNodo = keysSb.toString();
+
+        String idPadre = (parent == null) ? "--" : "[" + parent.getIdNode() + "]";
+
+        String idHijos = "--";
+        if (current.childs.get(0) != null) {
+            StringBuilder childsSb = new StringBuilder();
+            childsSb.append("[");
+            for (int i = 0; i <= current.count; i++) {
+                if (current.childs.get(i) != null) {
+                    childsSb.append(current.childs.get(i).getIdNode());
+                    if (i < current.count && current.childs.get(i + 1) != null) {
+                        childsSb.append(", ");
+                    }
+                }
+            }
+            childsSb.append("]");
+            idHijos = childsSb.toString();
+        }
+
+        sb.append(String.format("%-10s\t%-20s\t%-10s\t%-10s\n", idNodo, clavesNodo, idPadre, idHijos));
+
+        for (int i = 0; i <= current.count; i++) {
+            sb.append(writeTree(current.childs.get(i), current));
+        }
+
+        return sb.toString();
+    }
 }
