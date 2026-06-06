@@ -13,6 +13,10 @@ public class BTree<E extends Comparable<E>> {
         return this.root == null;
     }
 
+    public BNode<E> getRoot() {
+        return this.root;
+    }
+
     public void insert(E cl) {
         up = false;
         E mediana;
