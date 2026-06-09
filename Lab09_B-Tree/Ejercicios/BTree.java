@@ -12,7 +12,7 @@ public class BTree<E extends Comparable<E>> {
     public boolean isEmpty() {
         return this.root == null;
     }
-
+    
     public BNode<E> getRoot() {
         return this.root;
     }
@@ -106,9 +106,9 @@ public class BTree<E extends Comparable<E>> {
             }
         }
     }
-
+    
     private boolean delete(BNode<E> node, E key) {
-        int pos[] = new int[1];
+        int[] pos = new int[1];
         boolean found = node.searchNode(key, pos);
         if (found) {
             if (node.childs.get(pos[0]) == null) {
@@ -117,7 +117,11 @@ public class BTree<E extends Comparable<E>> {
             } else {
                 E pred = getPredecessor(node, pos[0]);
                 node.keys.set(pos[0], pred);
-                return delete(node.childs.get(pos[0]), pred);
+                boolean isDeleted = delete(node.childs.get(pos[0]), pred);
+                if (node.childs.get(pos[0]).count < (orden - 1) / 2) {
+                    fix(node, pos[0]);
+                }
+                return isDeleted;
             }
         } else {
             if (node.childs.get(pos[0]) == null) {
@@ -316,7 +320,7 @@ public class BTree<E extends Comparable<E>> {
         }
         System.out.println();
     }
-
+    
     private void searchRange(BNode<E> current, E min, E max, boolean[] foundAny) {
         if (current == null) {
             return;
@@ -326,15 +330,12 @@ public class BTree<E extends Comparable<E>> {
             E key = current.keys.get(i);
             if (key.compareTo(min) >= 0) {
                 searchRange(current.childs.get(i), min, max, foundAny);
+                
                 if (key.compareTo(max) <= 0) {
                     System.out.print(key + " ");
                     foundAny[0] = true;
                 } else {
-                    return;
-                }
-            } else {
-                if (i == current.count - 1 || current.keys.get(i + 1).compareTo(min) >= 0) {
-                    searchRange(current.childs.get(i), min, max, foundAny);
+                    return; 
                 }
             }
             i++;
