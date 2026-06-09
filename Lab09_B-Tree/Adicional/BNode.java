@@ -9,49 +9,21 @@ public class BNode<E> {
 
     public BNode(int n) {
         this.idNode = idCounter++;
-        this.keys = new ArrayList<E>(n);
-        this.childs = new ArrayList<BNode<E>>(n);
-        this.count = 0;
-        for (int i = 0; i < n; i++) {
-            this.keys.add(null);
-            this.childs.add(null);
-        }
+        this.keys   = new ArrayList<>(n);
+        this.childs = new ArrayList<>(n + 1);
+        this.count  = 0;
+        for (int i = 0; i < n;     i++) keys.add(null);
+        for (int i = 0; i <= n;    i++) childs.add(null);
     }
 
-    public int getIdNode() {
-        return this.idNode;
-    }
-
-    public boolean nodeFull(int maxKeys) {
-        return this.count == maxKeys;
-    }
-
-    public boolean nodeEmpty() {
-        return this.count == 0;
-    }
+    public static void resetCounter() { idCounter = 1; }
+    public int getIdNode() { return idNode; }
+    public boolean nodeFull(int maxKeys) { return count == maxKeys; }
 
     public boolean searchNode(E key, int[] pos) {
         pos[0] = 0;
-        while (pos[0] < count && ((Comparable<E>) key).compareTo(keys.get(pos[0])) > 0) {
+        while (pos[0] < count && ((Comparable<E>) key).compareTo(keys.get(pos[0])) > 0)
             pos[0]++;
-        }
-        if (pos[0] < count && ((Comparable<E>) key).compareTo(keys.get(pos[0])) == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int i = 0; i < count; i++) {
-            sb.append(keys.get(i));
-            if (i < count - 1) {
-                sb.append(", ");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
+        return pos[0] < count && ((Comparable<E>) key).compareTo(keys.get(pos[0])) == 0;
     }
 }
