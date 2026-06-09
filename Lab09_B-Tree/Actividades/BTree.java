@@ -89,6 +89,12 @@ public class BTree<E extends Comparable<E>> {
         E median = current.keys.get(current.count - 1);
         nDes.childs.set(0, current.childs.get(current.count));
         current.count--;
+        for (int j = current.count; j < this.orden; j++) {
+            current.keys.set(j, null);
+        }
+        for (int j = current.count + 1; j < this.orden; j++) {
+            current.childs.set(j, null);
+        }
         return median;
     }
 
