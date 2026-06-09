@@ -12,6 +12,10 @@ public class BTree<E extends Comparable<E>> {
     public boolean isEmpty() {
         return this.root == null;
     }
+    
+    public BNode<E> getRoot() {
+        return this.root;
+    }
 
     public void insert(E cl) {
         up = false;
