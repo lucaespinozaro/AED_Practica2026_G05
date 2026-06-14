@@ -57,6 +57,18 @@ public class GraphLink<E extends Comparable<E>> {
         v2.getEdges().removeNode(new Edge<>(v1.getVertex()));
     }
 
+    public boolean isConnected(E origin, E destination) {
+        AdjList<E> v1 = findVertex(origin);
+        AdjList<E> v2 = findVertex(destination);
+        if (v1 == null || v2 == null) return false;
+        for (int i = 0; i < v1.getEdges().size(); i++) {
+            if (v1.getEdges().get(i).getDestination().getData().equals(destination)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void dfsRecursive(AdjList<E> current, ListLinked<E> visited) {
         E data = current.getVertex().getData();
         visited.insertLast(data);
