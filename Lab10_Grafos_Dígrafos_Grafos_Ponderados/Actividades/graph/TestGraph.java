@@ -20,6 +20,9 @@ public class TestGraph {
         System.out.print("Recorrido BFS desde A: ");
         g.BFS("A");
 
+        System.out.println("¿A y B están conectados?: " + g.isConnected("A", "B"));
+        System.out.println("¿A y D están conectados?: " + g.isConnected("A", "D"));
+
         System.out.println("\n--- Eliminando arista (A, C) ---");
         g.removeEdge("A", "C");
         System.out.println(g);
