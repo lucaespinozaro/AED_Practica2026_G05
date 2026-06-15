@@ -35,7 +35,7 @@ public class ListLinked<E> {
         addLast(data);
     }
 
-x    public E get(int index) {
+    public E get(int index) {
         if (index < 0 || index >= size) return null;
         Node<E> current = head;
         for (int i = 0; i < index; i++) {
