@@ -18,7 +18,7 @@ public class GraphLink<E extends Comparable<E>> {
         if (data == null) return null;
         for (int i = 0; i < graph.size(); i++) {
             AdjList<E> adj = graph.get(i);
-            if (adj.getVertex().getData().equals(data)) {
+            if (adj.getVertex().getData().compareTo(data) == 0) {
                 return adj;
             }
         }
@@ -28,7 +28,7 @@ public class GraphLink<E extends Comparable<E>> {
     public void insertEdge(E origin, E destination) {
         AdjList<E> v1 = findVertex(origin);
         AdjList<E> v2 = findVertex(destination);
-        if (v1 == null || v2 == null) return;
+        if (v1 == null || v2 == null || isConnected(origin, destination)) return;
         v1.getEdges().addLast(new Edge<>(v2.getVertex()));
         v2.getEdges().addLast(new Edge<>(v1.getVertex()));
     }
@@ -62,7 +62,7 @@ public class GraphLink<E extends Comparable<E>> {
         AdjList<E> v2 = findVertex(destination);
         if (v1 == null || v2 == null) return false;
         for (int i = 0; i < v1.getEdges().size(); i++) {
-            if (v1.getEdges().get(i).getDestination().getData().equals(destination)) {
+            if (v1.getEdges().get(i).getDestination().getData().compareTo(destination) == 0) {
                 return true;
             }
         }
