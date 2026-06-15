@@ -97,7 +97,7 @@ public class GraphLink<E extends Comparable<E>> {
         AdjList<E> startVertex = findVertex(start);
         if (startVertex == null) return;
         ListLinked<E> visited = new ListLinked<>();
-        ColaEnlazada<AdjList<E>> queue = new ColaEnlazada<>();
+        QueueLink<AdjList<E>> queue = new QueueLink<>();
         visited.insertLast(start);
         queue.enqueue(startVertex);
         while (!queue.isEmpty()) {
