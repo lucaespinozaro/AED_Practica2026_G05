@@ -1,21 +1,40 @@
 package graph;
 
 import listlinked.ListLinked;
-import listlinked.ColaEnlazada;
+import listlinked.QueueLink;
+import listlinked.StackLink;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
 
 /**
  * GraphLink: Grafo no dirigido implementado con listas de adyacencia.
  * Incluye métodos de Actividad 3 + Ejercicios 1, 3 y 4.
  * (Ejercicio 2 usa JGraphT en su propia clase separada: CityNetwork.java)
+ *
+ * NOTA: No se usa HashMap ni ninguna clase de java.util.Map.
+ * El algoritmo de Dijkstra usa ListLinked<DijkstraEntry<E>> para
+ * almacenar distancias y predecesores.
  */
 public class GraphLink<E extends Comparable<E>> {
 
     private ListLinked<AdjList<E>> graph;
+
+    // ---------------------------------------------------------------
+    // Clase interna auxiliar para Dijkstra (reemplaza los HashMap)
+    // EJERCICIO 1 – Cada entrada guarda: vértice, distancia acumulada
+    //               y predecesor en el camino más corto.
+    // ---------------------------------------------------------------
+    private static class DijkstraEntry<E> {
+        E vertex;       // vértice al que corresponde esta entrada
+        int dist;       // distancia mínima acumulada desde el origen
+        E prev;         // predecesor en el camino más corto (null si es el origen)
+
+        DijkstraEntry(E vertex, int dist, E prev) {
+            this.vertex = vertex;
+            this.dist   = dist;
+            this.prev   = prev;
+        }
+    }
 
     // ---------------------------------------------------------------
     // ACTIVIDAD 3 — Estructura base del grafo
@@ -56,7 +75,6 @@ public class GraphLink<E extends Comparable<E>> {
         if (data == null) return;
         AdjList<E> targetAdj = findVertex(data);
         if (targetAdj == null) return;
-        // Eliminar aristas en vecinos que apuntan al vértice a borrar
         for (int i = 0; i < targetAdj.getEdges().size(); i++) {
             Edge<E> edge = targetAdj.getEdges().get(i);
             AdjList<E> neighborAdj = findVertex(edge.getDestination().getData());
@@ -103,7 +121,7 @@ public class GraphLink<E extends Comparable<E>> {
         AdjList<E> startAdj = findVertex(startData);
         if (startAdj == null) return;
         ListLinked<E> visited = new ListLinked<>();
-        ColaEnlazada<AdjList<E>> queue = new ColaEnlazada<>();
+        QueueLink<AdjList<E>> queue = new QueueLink<>();
         visited.insertLast(startData);
         queue.enqueue(startAdj);
         while (!queue.isEmpty()) {
@@ -139,7 +157,7 @@ public class GraphLink<E extends Comparable<E>> {
     }
 
     /**
-     * EJERCICIO 1 – Calcula la ruta más corta entre v y z usando Dijkstra.
+     * EJERCICIO 1 – Calcula la ruta más corta entre origin y destination.
      * Retorna un ArrayList con los vértices del camino (de origen a destino).
      * Si no existe camino, retorna lista vacía.
      */
@@ -159,7 +177,7 @@ public class GraphLink<E extends Comparable<E>> {
         return visited.size() == graph.size();
     }
 
-    /** Auxiliar DFS que solo marca visitados (sin imprimir). */
+    /** Auxiliar – DFS que solo acumula visitados sin imprimir. */
     private void dfsVisited(AdjList<E> current, ListLinked<E> visited) {
         if (current == null) return;
         visited.insertLast(current.getVertex().getData());
@@ -172,13 +190,13 @@ public class GraphLink<E extends Comparable<E>> {
     }
 
     /**
-     * EJERCICIO 1 – Retorna un Stack con la ruta más corta de v a w
-     * usando el algoritmo de Dijkstra. La cima del stack es el origen.
+     * EJERCICIO 1 – Retorna un Stack con la ruta más corta de origin a
+     * destination usando Dijkstra. La cima del stack es el origen.
      */
-    public Stack<E> Dijkstra(E origin, E destination) {
+    public StackLink<E> Dijkstra(E origin, E destination) {
         ArrayList<E> path = dijkstraPath(origin, destination);
-        Stack<E> stack = new Stack<>();
-        // Apilamos en orden inverso para que la cima sea el origen
+        StackLink<E> stack = new StackLink<>();
+        // Se apila en orden inverso para que la cima sea el origen
         for (int i = path.size() - 1; i >= 0; i--) {
             stack.push(path.get(i));
         }
@@ -186,73 +204,110 @@ public class GraphLink<E extends Comparable<E>> {
     }
 
     /**
-     * Implementación interna de Dijkstra.
-     * Retorna el camino como ArrayList del origen al destino.
+     * EJERCICIO 1 – Implementación interna de Dijkstra usando
+     * ListLinked<DijkstraEntry<E>> en lugar de HashMap.
+     *
+     * Estructura de datos:
+     *   - entries : ListLinked<DijkstraEntry<E>>
+     *               Una entrada por cada vértice del grafo.
+     *               Cada entrada guarda (vertex, dist, prev).
+     *   - unvisited: ListLinked<E>
+     *               Vértices aún no procesados.
+     *
+     * Se reemplaza Map<E,Integer> dist  →  campo dist  de DijkstraEntry
+     * Se reemplaza Map<E,E>      prev  →  campo prev  de DijkstraEntry
+     * Se reemplaza dist.get(v)         →  getEntry(entries, v).dist
+     * Se reemplaza prev.get(v)         →  getEntry(entries, v).prev
+     * Se reemplaza dist.put(v, x)      →  getEntry(entries, v).dist = x
+     * Se reemplaza prev.put(v, x)      →  getEntry(entries, v).prev = x
      */
     private ArrayList<E> dijkstraPath(E origin, E destination) {
         ArrayList<E> result = new ArrayList<>();
         if (findVertex(origin) == null || findVertex(destination) == null) return result;
 
-        // Distancias y predecesores
-        Map<E, Integer> dist = new HashMap<>();
-        Map<E, E> prev = new HashMap<>();
+        // --- Reemplaza: Map<E,Integer> dist = new HashMap<>()
+        //                Map<E,E>      prev = new HashMap<>()
+        // Usamos una sola lista de entradas que guarda ambos valores.
+        ListLinked<DijkstraEntry<E>> entries = new ListLinked<>();
         ListLinked<E> unvisited = new ListLinked<>();
 
-        // Inicializar todas las distancias en infinito
+        // Inicializar: distancia infinita, sin predecesor
         for (int i = 0; i < graph.size(); i++) {
             E v = graph.get(i).getVertex().getData();
-            dist.put(v, Integer.MAX_VALUE);
-            prev.put(v, null);
+            entries.addLast(new DijkstraEntry<>(v, Integer.MAX_VALUE, null));
             unvisited.insertLast(v);
         }
-        dist.put(origin, 0);
+        // Distancia del origen = 0
+        getEntry(entries, origin).dist = 0;
 
         while (!unvisited.isEmpty()) {
-            // Obtener el vértice no visitado con menor distancia
-            E u = minDistance(dist, unvisited);
-            if (u == null || dist.get(u) == Integer.MAX_VALUE) break;
+            // Obtener el vértice no visitado con menor distancia acumulada
+            E u = minDistanceEntry(entries, unvisited);
+            if (u == null || getEntry(entries, u).dist == Integer.MAX_VALUE) break;
             if (u.equals(destination)) break;
 
-            // Remover u de no visitados
             unvisited.removeNode(u);
 
             // Relajar vecinos
             AdjList<E> adjU = findVertex(u);
             if (adjU == null) continue;
+            int distU = getEntry(entries, u).dist;
+
             for (int i = 0; i < adjU.getEdges().size(); i++) {
                 Edge<E> edge = adjU.getEdges().get(i);
                 E neighbor = edge.getDestination().getData();
                 if (!unvisited.search(neighbor)) continue;
-                int alt = dist.get(u) + edge.getWeight();
-                if (alt < dist.get(neighbor)) {
-                    dist.put(neighbor, alt);
-                    prev.put(neighbor, u);
+
+                int alt = distU + edge.getWeight();
+                DijkstraEntry<E> neighborEntry = getEntry(entries, neighbor);
+                if (alt < neighborEntry.dist) {
+                    neighborEntry.dist = alt;   // --- reemplaza: dist.put(neighbor, alt)
+                    neighborEntry.prev = u;     // --- reemplaza: prev.put(neighbor, u)
                 }
             }
         }
 
-        // Reconstruir camino desde destination hasta origin
+        // Reconstruir camino desde destination hacia origin siguiendo prev
         ArrayList<E> path = new ArrayList<>();
         E step = destination;
-        if (prev.get(step) == null && !step.equals(origin)) {
-            return result; // sin camino
+        DijkstraEntry<E> stepEntry = getEntry(entries, step);
+        if (stepEntry.prev == null && !step.equals(origin)) {
+            return result; // no hay camino
         }
         while (step != null) {
             path.add(0, step);
-            step = prev.get(step);
+            DijkstraEntry<E> e = getEntry(entries, step);
+            step = (e != null) ? e.prev : null;
         }
         return path;
     }
 
-    /** Auxiliar: devuelve el vértice con menor distancia entre los no visitados. */
-    private E minDistance(Map<E, Integer> dist, ListLinked<E> unvisited) {
+    /**
+     * EJERCICIO 1 – Auxiliar: busca la entrada de un vértice en la lista
+     * de entradas de Dijkstra. Reemplaza dist.get(v) / prev.get(v).
+     */
+    private DijkstraEntry<E> getEntry(ListLinked<DijkstraEntry<E>> entries, E vertex) {
+        for (int i = 0; i < entries.size(); i++) {
+            DijkstraEntry<E> e = entries.get(i);
+            if (e.vertex.equals(vertex)) return e;
+        }
+        return null;
+    }
+
+    /**
+     * EJERCICIO 1 – Auxiliar: recorre los no-visitados y devuelve el vértice
+     * cuya entrada tenga la menor distancia acumulada.
+     * Reemplaza el método minDistance que recibía Map<E,Integer>.
+     */
+    private E minDistanceEntry(ListLinked<DijkstraEntry<E>> entries,
+                               ListLinked<E> unvisited) {
         E minVertex = null;
-        int minDist = Integer.MAX_VALUE;
+        int minDist  = Integer.MAX_VALUE;
         for (int i = 0; i < unvisited.size(); i++) {
             E v = unvisited.get(i);
-            int d = dist.getOrDefault(v, Integer.MAX_VALUE);
-            if (d < minDist) {
-                minDist = d;
+            DijkstraEntry<E> e = getEntry(entries, v);
+            if (e != null && e.dist < minDist) {
+                minDist  = e.dist;
                 minVertex = v;
             }
         }
@@ -260,9 +315,10 @@ public class GraphLink<E extends Comparable<E>> {
     }
 
     // ---------------------------------------------------------------
-    // EJERCICIO 3 — Métodos adicionales de la interfaz Graph<V,E>:
+    // EJERCICIO 3 — Métodos adicionales de la interfaz Graph:
     //               searchVertex, searchEdge, adjacentVertices
-    // (insertVertex, insertEdge, removeVertex, removeEdge ya existen)
+    // (insertVertex, insertEdge, removeVertex, removeEdge ya existen
+    //  desde Actividad 3)
     // ---------------------------------------------------------------
 
     /**
@@ -289,8 +345,8 @@ public class GraphLink<E extends Comparable<E>> {
     }
 
     /**
-     * EJERCICIO 3 – Retorna un ArrayList con los vértices adyacentes
-     * al vértice dado.
+     * EJERCICIO 3 – Retorna un ArrayList con los datos de los vértices
+     * adyacentes al vértice dado.
      */
     public ArrayList<E> adjacentVertices(E data) {
         ArrayList<E> result = new ArrayList<>();
@@ -303,30 +359,29 @@ public class GraphLink<E extends Comparable<E>> {
     }
 
     // ---------------------------------------------------------------
-    // EJERCICIO 4 — isIsomorfo, isPlanar, isConexo (ya existe),
-    //               isAutoComplementario
+    // EJERCICIO 4 — isIsomorfo, isPlanar, isConexo (ya existe desde
+    //               Ejercicio 1), isAutoComplementario
     // ---------------------------------------------------------------
 
     /**
-     * EJERCICIO 4 – Verifica si este grafo es isomorfo con otro grafo g.
-     * Condición necesaria (no suficiente): mismo número de vértices,
-     * mismo número de aristas y misma secuencia de grados ordenada.
-     * Para grafos de laboratorio esta heurística es suficientemente precisa.
+     * EJERCICIO 4 – Verifica si este grafo es isomorfo con otro grafo.
+     * Criterio: mismo número de vértices, mismo número de aristas y
+     * misma secuencia de grados ordenada de mayor a menor.
      */
     public boolean isIsomorfo(GraphLink<E> other) {
         if (this.graph.size() != other.graph.size()) return false;
-
-        int thisEdges = countEdges();
-        int otherEdges = other.countEdges();
-        if (thisEdges != otherEdges) return false;
-
+        if (this.countEdges() != other.countEdges()) return false;
         // Comparar secuencias de grados ordenadas
-        ArrayList<Integer> thisDegrees = degreeSequence();
-        ArrayList<Integer> otherDegrees = other.degreeSequence();
-        return thisDegrees.equals(otherDegrees);
+        ListLinked<Integer> thisDeg  = degreeSequence();
+        ListLinked<Integer> otherDeg = other.degreeSequence();
+        if (thisDeg.size() != otherDeg.size()) return false;
+        for (int i = 0; i < thisDeg.size(); i++) {
+            if (!thisDeg.get(i).equals(otherDeg.get(i))) return false;
+        }
+        return true;
     }
 
-    /** Auxiliar EJERCICIO 4 – Cuenta el número de aristas del grafo (no dirigido → /2). */
+    /** Auxiliar EJERCICIO 4 – Cuenta aristas totales (no dirigido → suma/2). */
     private int countEdges() {
         int total = 0;
         for (int i = 0; i < graph.size(); i++) {
@@ -335,51 +390,58 @@ public class GraphLink<E extends Comparable<E>> {
         return total / 2;
     }
 
-    /** Auxiliar EJERCICIO 4 – Retorna la secuencia de grados ordenada de mayor a menor. */
-    private ArrayList<Integer> degreeSequence() {
-        ArrayList<Integer> degrees = new ArrayList<>();
+    /**
+     * Auxiliar EJERCICIO 4 – Retorna la secuencia de grados ordenada
+     * de mayor a menor usando una ListLinked (insertion sort).
+     */
+    private ListLinked<Integer> degreeSequence() {
+        ListLinked<Integer> degrees = new ListLinked<>();
+        // Recolectar grados
         for (int i = 0; i < graph.size(); i++) {
-            degrees.add(graph.get(i).getEdges().size());
+            degrees.addLast(graph.get(i).getEdges().size());
         }
-        degrees.sort((a, b) -> b - a);
+        // Ordenar de mayor a menor con insertion sort sobre la lista
+        int n = degrees.size();
+        for (int i = 1; i < n; i++) {
+            int key = degrees.get(i);
+            int j = i - 1;
+            while (j >= 0 && degrees.get(j) < key) {
+                degrees.set(j + 1, degrees.get(j));
+                j--;
+            }
+            degrees.set(j + 1, key);
+        }
         return degrees;
     }
 
     /**
      * EJERCICIO 4 – Verifica si el grafo es planar usando el criterio de Euler:
      * Un grafo simple conexo es planar si E <= 3V - 6 (para V >= 3).
-     * También aplica la restricción de Kuratowski para grafos bipartitos: E <= 2V - 4.
-     * Para grafos pequeños del laboratorio esta fórmula es correcta.
      */
     public boolean isPlanar() {
         int V = graph.size();
         int E = countEdges();
-        if (V < 3) return true;          // Grafos triviales siempre planos
-        if (E > 3 * V - 6) return false; // Condición necesaria de Euler
-        return true;
+        if (V < 3) return true;
+        return E <= 3 * V - 6;
     }
 
     /**
      * EJERCICIO 4 – Verifica si el grafo es auto-complementario.
-     * Un grafo G es auto-complementario si su complemento G' es isomorfo a G.
-     * El complemento se forma con las aristas que NO están en G.
+     * G es auto-complementario si su complemento G' es isomorfo a G.
      */
     public boolean isAutoComplementario() {
-        GraphLink<E> complement = buildComplement();
-        return this.isIsomorfo(complement);
+        return this.isIsomorfo(buildComplement());
     }
 
     /**
      * Auxiliar EJERCICIO 4 – Construye el grafo complemento:
-     * contiene todas las aristas posibles que NO están en el grafo original.
+     * incluye exactamente las aristas que NO están en el grafo original.
      */
     private GraphLink<E> buildComplement() {
         GraphLink<E> comp = new GraphLink<>();
-        // Agregar los mismos vértices
         for (int i = 0; i < graph.size(); i++) {
             comp.insertVertex(graph.get(i).getVertex().getData());
         }
-        // Agregar aristas que NO existen en el grafo original
         for (int i = 0; i < graph.size(); i++) {
             E u = graph.get(i).getVertex().getData();
             for (int j = i + 1; j < graph.size(); j++) {

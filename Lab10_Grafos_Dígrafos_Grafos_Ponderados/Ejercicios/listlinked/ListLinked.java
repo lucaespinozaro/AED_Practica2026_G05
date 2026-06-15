@@ -35,7 +35,7 @@ public class ListLinked<E> {
         addLast(data);
     }
 
-    public E get(int index) {
+x    public E get(int index) {
         if (index < 0 || index >= size) return null;
         Node<E> current = head;
         for (int i = 0; i < index; i++) {
@@ -78,6 +78,16 @@ public class ListLinked<E> {
             current = current.next;
         }
         return false;
+    }
+
+    /** Modifica el dato en la posición index (sin cambiar la estructura de nodos). */
+    public void set(int index, E data) {
+        if (index < 0 || index >= size) return;
+        Node<E> current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        current.data = data;
     }
 
     public E removeFirst() {

@@ -1,11 +1,11 @@
 package listlinked;
 
-public class ColaEnlazada<E> {
+public class QueueLink<E> {
     private Node<E> front;
     private Node<E> rear;
     private int size;
 
-    public ColaEnlazada() {
+    public QueueLink() {
         front = null;
         rear = null;
         size = 0;

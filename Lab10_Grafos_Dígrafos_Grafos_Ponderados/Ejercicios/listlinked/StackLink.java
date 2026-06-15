@@ -1,3 +1,6 @@
+package listlinked;
+
+
 public class StackLink<E extends Comparable<E>> {
     private Node<E> tope;
 

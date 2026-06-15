@@ -1,7 +1,7 @@
 package graph;
-
+import listlinked.StackLink;
 import java.util.ArrayList;
-import java.util.Stack;
+
 
 /**
  * Clase de prueba que valida los métodos de Actividad 3
@@ -78,9 +78,9 @@ public class TestGraph {
         System.out.println("Ruta más corta Arequipa → Tacna (shortPath): " + path);
 
         // EJERCICIO 1 – Dijkstra (Stack)
-        Stack<String> stack = gPonderado.Dijkstra("Cusco", "Tacna");
+        StackLink<String> stack = gPonderado.Dijkstra("Cusco", "Tacna");
         System.out.print("Ruta más corta Cusco → Tacna (Dijkstra Stack): ");
-        Stack<String> temp = new Stack<>();
+        StackLink<String> temp = new StackLink<>();
         temp.addAll(stack);
         System.out.println(temp);
 
