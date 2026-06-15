@@ -1,5 +1,3 @@
-package Pilas;
-
 public class StackLink<E extends Comparable<E>> {
     private Node<E> tope;
 
