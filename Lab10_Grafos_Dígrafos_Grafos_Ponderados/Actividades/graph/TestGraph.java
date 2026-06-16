@@ -24,11 +24,14 @@ public class TestGraph {
         System.out.println("¿A y D están conectados?: " + g.isConnected("A", "D"));
 
         System.out.println("\n--- Eliminando arista (A, C) ---");
-        g.removeEdge("A", "C");
+        System.out.println("¿Se eliminó la arista?: " + g.removeEdge("A", "C"));
         System.out.println(g);
 
         System.out.println("--- Eliminando vértice B (Eficiente) ---");
-        g.removeVertex("B");
+        System.out.println("¿Se eliminó el vértice?: " + g.removeVertex("B"));
         System.out.println(g);
+        
+        System.out.println("--- Intentando eliminar vértice B nuevamente ---");
+        System.out.println("¿Se eliminó el vértice?: " + g.removeVertex("B"));
     }
 }
