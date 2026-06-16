@@ -1,6 +1,3 @@
-package graph;
-
-// Clase base usada en Actividad 3 y todos los Ejercicios
 public class Edge<E extends Comparable<E>> implements Comparable<Edge<E>> {
     private Vertex<E> destination;
     private int weight;
@@ -9,7 +6,6 @@ public class Edge<E extends Comparable<E>> implements Comparable<Edge<E>> {
         this(destination, 1);
     }
 
-    // --- EJERCICIO 1: constructor con peso para grafo ponderado ---
     public Edge(Vertex<E> destination, int weight) {
         this.destination = destination;
         this.weight = weight;
@@ -19,7 +15,6 @@ public class Edge<E extends Comparable<E>> implements Comparable<Edge<E>> {
         return destination;
     }
 
-    // --- EJERCICIO 1: getter de peso ---
     public int getWeight() {
         return weight;
     }
@@ -38,11 +33,12 @@ public class Edge<E extends Comparable<E>> implements Comparable<Edge<E>> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Edge)) return false;
         Edge<E> e = (Edge<E>) o;
-        return this.destination.equals(e.destination);
+        return this.destination.getData().compareTo(e.destination.getData()) == 0;
     }
 
     @Override
@@ -52,9 +48,6 @@ public class Edge<E extends Comparable<E>> implements Comparable<Edge<E>> {
 
     @Override
     public String toString() {
-        // --- EJERCICIO 1: mostrar peso si no es 1 (arista ponderada) ---
-        return weight != 1
-                ? destination.toString() + "(" + weight + ")"
-                : destination.toString();
+        return weight != 1 ? destination.toString() + "(" + weight + ")" : destination.toString();
     }
 }
