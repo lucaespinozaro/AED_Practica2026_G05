@@ -1,6 +1,3 @@
-package graph;
-
-// Clase base usada en Actividad 3 y todos los Ejercicios
 public class Vertex<E extends Comparable<E>> {
     private E data;
 
@@ -27,7 +24,7 @@ public class Vertex<E extends Comparable<E>> {
         if (this == o) return true;
         if (!(o instanceof Vertex)) return false;
         Vertex<E> v = (Vertex<E>) o;
-        return this.data.equals(v.data);
+        return this.data.compareTo(v.data) == 0;
     }
 
     @Override
