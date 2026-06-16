@@ -1,8 +1,5 @@
-package graph;
-
 import listlinked.ListLinked;
 
-// Clase auxiliar usada desde Actividad 3 y todos los Ejercicios
 public class AdjList<E extends Comparable<E>> implements Comparable<AdjList<E>> {
     private Vertex<E> vertex;
     private ListLinked<Edge<E>> edges;
@@ -31,7 +28,7 @@ public class AdjList<E extends Comparable<E>> implements Comparable<AdjList<E>> 
         if (this == o) return true;
         if (!(o instanceof AdjList)) return false;
         AdjList<E> a = (AdjList<E>) o;
-        return this.vertex.equals(a.vertex);
+        return this.vertex.getData().compareTo(a.getVertex().getData()) == 0;
     }
 
     @Override
