@@ -33,10 +33,10 @@ public class GraphLink<E extends Comparable<E>> {
         v2.getEdges().addLast(new Edge<>(v1.getVertex()));
     }
 
-    public void removeVertex(E data) {
-        if (data == null) return;
+    public boolean removeVertex(E data) {
+        if (data == null) return false;
         AdjList<E> targetAdj = findVertex(data);
-        if (targetAdj == null) return;
+        if (targetAdj == null) return false;
 
         for (int i = 0; i < targetAdj.getEdges().size(); i++) {
             Edge<E> edge = targetAdj.getEdges().get(i);
@@ -46,15 +46,17 @@ public class GraphLink<E extends Comparable<E>> {
                 neighborAdj.getEdges().removeNode(new Edge<>(targetAdj.getVertex()));
             }
         }
-        graph.removeNode(targetAdj);
+        return graph.removeNode(targetAdj);
     }
-
-    public void removeEdge(E origin, E destination) {
+    
+    public boolean removeEdge(E origin, E destination) {
         AdjList<E> v1 = findVertex(origin);
         AdjList<E> v2 = findVertex(destination);
-        if (v1 == null || v2 == null) return;
-        v1.getEdges().removeNode(new Edge<>(v2.getVertex()));
-        v2.getEdges().removeNode(new Edge<>(v1.getVertex()));
+        if (v1 == null || v2 == null) return false;
+    
+        boolean r1 = v1.getEdges().removeNode(new Edge<>(v2.getVertex()));
+        boolean r2 = v2.getEdges().removeNode(new Edge<>(v1.getVertex()));
+        return r1 && r2;
     }
 
     public boolean isConnected(E origin, E destination) {
