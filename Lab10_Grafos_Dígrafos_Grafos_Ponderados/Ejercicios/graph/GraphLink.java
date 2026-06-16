@@ -88,7 +88,6 @@ public class GraphLink<E extends Comparable<E>> extends AbstractGraph<E> {
     return reachableCount(start) == graph.size();
   }
 
-  // Opcional: lo dejo por compatibilidad con tu ejercicio anterior
   public boolean isPlanar() {
     int V = graph.size();
     int E = countEdges();
