@@ -1,7 +1,6 @@
 public class TestGraph2 {
     public static void main(String[] args) {
         GraphLink<String> g = new GraphLink<>();
-
         g.insertVertex("A");
         g.insertVertex("B");
         g.insertVertex("C");
