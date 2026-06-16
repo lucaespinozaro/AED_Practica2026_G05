@@ -10,7 +10,6 @@ import org.jgrapht.graph.SimpleWeightedGraph;
  * Se utiliza un grafo valorado no dirigido de la librería JGraphT.
  */
 public class CityNetwork {
-
     private Graph<String, DefaultWeightedEdge> graph;
 
     public CityNetwork() {
