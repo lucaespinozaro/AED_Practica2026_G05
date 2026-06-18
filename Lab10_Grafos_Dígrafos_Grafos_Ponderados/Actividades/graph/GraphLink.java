@@ -1,5 +1,5 @@
 import listlinked.ListLinked;
-import listlinked.ColaEnlazada;
+import listlinked.QueueLink;
 
 public class GraphLink<E extends Comparable<E>> {
     private ListLinked<AdjList<E>> graph;
