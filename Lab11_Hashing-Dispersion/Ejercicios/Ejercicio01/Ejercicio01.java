@@ -1,6 +1,7 @@
 public class Ejercicio01 {
     public static void main(String[] args) {
         int[] table = new int[11];
+        
         for (int i = 0; i < table.length; i++) {
             table[i] = -1;
         }
