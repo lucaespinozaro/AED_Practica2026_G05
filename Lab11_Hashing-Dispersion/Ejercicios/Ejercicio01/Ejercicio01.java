@@ -8,7 +8,11 @@ public class Ejercicio01 {
         int[] values = {3, 14, 25, 36, 47, 58};
 
         for (int val : values) {
-            int index = val % 11;
+            int baseIndex = val % 11;
+            int index = baseIndex;
+            while (table[index] != -1) {
+                index = (index + 1) % 11;
+            }
             table[index] = val;
         }
 
