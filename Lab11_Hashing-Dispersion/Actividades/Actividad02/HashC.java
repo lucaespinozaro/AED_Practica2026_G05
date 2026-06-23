@@ -1,3 +1,5 @@
+package hash;
+
 public class HashC<E> {
     private static class Element<E> {
         Register<E> register;
