@@ -29,11 +29,6 @@ public class Register<E> implements Comparable<Register<E>> {
     }
 
     @Override
-    public int hashCode() {
-        return Integer.hashCode(key);
-    }
-
-    @Override
     public String toString() {
         return "(" + key + ", " + name + ")";
     }
