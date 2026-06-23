@@ -4,7 +4,6 @@ public class Ejercicio01 {
         for (int i = 0; i < table.length; i++) {
             table[i] = -1;
         }
-
         int[] values = {3, 14, 25, 36, 47, 58};
 
         for (int val : values) {
