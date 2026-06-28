@@ -1,18 +1,20 @@
+package hash;
+
 public class Register<E> implements Comparable<Register<E>> {
     private int key;
-    private E name;
+    private E value;
 
-    public Register(int key, E name) {
+    public Register(int key, E value) {
         this.key = key;
-        this.name = name;
+        this.value = value;
     }
 
     public int getKey() {
         return key;
     }
 
-    public E getName() {
-        return name;
+    public E getValue() {
+        return value;
     }
 
     @Override
@@ -30,6 +32,6 @@ public class Register<E> implements Comparable<Register<E>> {
 
     @Override
     public String toString() {
-        return "(" + key + ", " + name + ")";
+        return "(" + key + ", " + value + ")";
     }
 }
