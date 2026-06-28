@@ -1,11 +1,8 @@
-/**
- * Representa una sesion activa de un usuario autenticado.
- */
 public class Session {
     private String token;
     private String username;
     private String role;
-    private long expiresAt; // timestamp Unix en milisegundos
+    private long expiresAt;
 
     public Session(String token, String username, String role, long expiresAt) {
         this.token = token;
@@ -36,7 +33,6 @@ public class Session {
 
     @Override
     public String toString() {
-        return "Session{token=" + token + ", usuario=" + username +
-                ", rol=" + role + ", expiraEn=" + expiresAt + "}";
+        return "Session{token=" + token + ", usuario=" + username + ", rol=" + role + ", expiraEn=" + expiresAt + "}";
     }
 }
