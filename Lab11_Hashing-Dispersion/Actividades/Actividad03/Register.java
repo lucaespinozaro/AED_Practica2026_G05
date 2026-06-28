@@ -1,5 +1,3 @@
-package hash;
-
 public class Register<E> implements Comparable<Register<E>> {
     private int key;
     private E value;
