@@ -1,27 +1,13 @@
 public class Ejercicio01 {
     public static void main(String[] args) {
-        int[] table = new int[11];
-        
-        for (int i = 0; i < table.length; i++) {
-            table[i] = -1;
-        }
+        HashC<Integer> table = new HashC<>(11);
+
         int[] values = {3, 14, 25, 36, 47, 58};
 
         for (int val : values) {
-            int baseIndex = val % 11;
-            int index = baseIndex;
-            while (table[index] != -1) {
-                index = (index + 1) % 11;
-            }
-            table[index] = val;
+            table.insert(new Register<>(val, val));
         }
 
-        for (int i = 0; i < table.length; i++) {
-            if (table[i] == -1) {
-                System.out.println(i + ": vacio");
-            } else {
-                System.out.println(i + ": " + table[i]);
-            }
-        }
+        table.printTable();
     }
 }
