@@ -1,7 +1,3 @@
-/**
- * Ejercicio 6: Caso real - sistema de autenticacion (cache de sesiones).
- * Esta clase cumple el rol de "TestSessionCache" descrito en el laboratorio.
- */
 public class Ejercicio06 {
     public static void main(String[] args) {
         System.out.println("=== Ejercicio 6: Cache de sesiones con tabla hash (encadenamiento) ===\n");
@@ -9,9 +5,9 @@ public class Ejercicio06 {
         SessionCache cache = new SessionCache(7);
 
         System.out.println("1) Tres usuarios inician sesion:");
-        cache.login("abc123", "alice", "admin", 60000);   // valida por 60s
-        cache.login("xyz789", "bob", "user", -5000);       // ttl negativo -> ya expirada
-        cache.login("mno456", "carol", "editor", 30000);   // valida por 30s
+        cache.login("abc123", "alice", "admin", 60000);   
+        cache.login("xyz789", "bob", "user", -5000);       
+        cache.login("mno456", "carol", "editor", 30000);   
         System.out.println("  alice (abc123, 60s), bob (xyz789, ya expirado), carol (mno456, 30s)");
 
         System.out.println("\n--- Estado de la tabla tras los logins ---");
@@ -43,7 +39,7 @@ public class Ejercicio06 {
         System.out.println("\nSesiones activas restantes: " + cache.countActive());
 
         System.out.println("\n--- Reflexion ---");
-        System.out.println("Por que una tabla hash es mas eficiente que recorrer una lista enlazada");
+        System.out.println("¿Por que usar una tabla hash es mas eficiente que recorrer una lista enlazada");
         System.out.println("para verificar un token?");
         System.out.println("  Con una lista enlazada simple hay que recorrerla nodo por nodo (O(n) en");
         System.out.println("  el peor caso) comparando tokens uno por uno. Con la tabla hash, el token");
@@ -51,7 +47,7 @@ public class Ejercicio06 {
         System.out.println("  que en promedio la busqueda es O(1): se llega casi de inmediato a la");
         System.out.println("  cadena correcta, que normalmente tiene muy pocos elementos.");
 
-        System.out.println("\nQue ventaja tiene el HashMap de Java sobre esta implementacion manual?");
+        System.out.println("\n¿Que ventaja tiene el HashMap de Java sobre esta implementacion manual?");
         System.out.println("  HashMap redimensiona (rehashing) automaticamente cuando el factor de");
         System.out.println("  carga crece, usa una funcion hash mas elaborada para distribuir mejor");
         System.out.println("  las claves, y ya esta probada y optimizada (con variantes concurrentes");
