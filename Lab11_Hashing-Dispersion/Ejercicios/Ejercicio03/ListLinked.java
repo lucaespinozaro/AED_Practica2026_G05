@@ -22,12 +22,32 @@ public class ListLinked<T extends Comparable<T>> {
         return first;
     }
 
+    protected void setFirstNode(Node<T> node) {
+        this.first = node;
+    }
+
+    protected void incrementSize() {
+        this.size++;
+    }
+
     public boolean isEmptyList() {
         return size == 0;
     }
 
+    public int length() {
+        return size;
+    }
+
     public int size() {
         return size;
+    }
+
+    public void insertFirst(T dato) {
+        if (dato == null) throw new IllegalArgumentException("Dato null");
+        Node<T> nuevo = new Node<>(dato);
+        nuevo.next = this.first;
+        this.first = nuevo;
+        size++;
     }
 
     public void insertLast(T dato) {
@@ -45,6 +65,15 @@ public class ListLinked<T extends Comparable<T>> {
 
     public void addLast(T dato) {
         insertLast(dato);
+    }
+
+    public T get(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        Node<T> aux = this.first;
+        for (int i = 0; i < index; i++) {
+            aux = aux.next;
+        }
+        return aux.dato;
     }
 
     public boolean search(T dato) {
@@ -78,6 +107,24 @@ public class ListLinked<T extends Comparable<T>> {
         return true;
     }
 
+    public void insertOrdered(T dato) {
+        if (dato == null) throw new IllegalArgumentException("Dato null");
+        Node<T> nuevo = new Node<>(dato);
+
+        if (this.isEmptyList() || this.first.dato.compareTo(dato) >= 0) {
+            nuevo.next = this.first;
+            this.first = nuevo;
+        } else {
+            Node<T> aux = this.first;
+            while (aux.next != null && aux.next.dato.compareTo(dato) < 0) {
+                aux = aux.next;
+            }
+            nuevo.next = aux.next;
+            aux.next = nuevo;
+        }
+        size++;
+    }
+
     public void print() {
         if (this.isEmptyList()) {
             System.out.println("");
@@ -92,5 +139,17 @@ public class ListLinked<T extends Comparable<T>> {
             aux = aux.next;
         }
         System.out.println(sb.toString());
+    }
+
+    public void reverse() {
+        Node<T> prev = null;
+        Node<T> curr = this.first;
+        while (curr != null) {
+            Node<T> next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        this.first = prev;
     }
 }
