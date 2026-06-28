@@ -180,6 +180,14 @@ public class HashC<E> {
         return false;
     }
 
+    public void clearTable() {
+        for (int i = 0; i < size; i++) {
+            table[i].register = null;
+            table[i].mark = 0;
+        }
+        this.count = 0;
+    }
+
     public void printTable() {
         for (int i = 0; i < size; i++) {
             if (table[i].mark == 1) {
