@@ -131,6 +131,13 @@ public class HashO<E> {
         return table[index].size();
     }
 
+    public void clearTable() {
+        for (int i = 0; i < size; i++) {
+            table[i] = new ListLinked<>();
+        }
+        this.count = 0;
+    }
+
     public void printTable() {
         for (int i = 0; i < size; i++) {
             System.out.print(i + ": ");
