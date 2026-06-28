@@ -1,51 +1,30 @@
-/**
- * Ejercicio 3: Tabla hash abierta con colisiones multiples.
- * Tabla de tamano 7, h(k) = k % 7. No usa java.util: HashO usa ListLinked propia.
- */
 public class Ejercicio03 {
     public static void main(String[] args) {
-        System.out.println("=== Ejercicio 3: Tabla hash abierta con colisiones multiples ===\n");
-
         HashO<String> hashO = new HashO<>(7);
 
-        int[] keys = {10, 17, 24, 31, 5, 12};
-        String[] names = {"Juan", "Ana", "Luis", "Rosa", "Pedro", "Carla"};
+        hashO.insert(new Register<>(10, "Juan"));
+        hashO.insert(new Register<>(17, "Ana"));
+        hashO.insert(new Register<>(24, "Luis"));
+        hashO.insert(new Register<>(31, "Rosa"));
+        hashO.insert(new Register<>(5, "Pedro"));
+        hashO.insert(new Register<>(12, "Carla"));
 
-        System.out.println("Insertando registros (h(k) = k % 7):");
-        for (int i = 0; i < keys.length; i++) {
-            int index = keys[i] % 7;
-            System.out.println("  Insertar(" + keys[i] + ", \"" + names[i] + "\") -> indice " + index);
-            hashO.insert(new Register<>(keys[i], names[i]));
-        }
-
-        System.out.println("\nColisiones detectadas:");
-        System.out.println("  Indice 3: 10, 17, 24 y 31 colisionan (los 4 valores son % 7 = 3)");
-        System.out.println("  Indice 5: 5 y 12 colisionan (ambos son % 7 = 5)");
-        System.out.println("  El resto de indices (0,1,2,4,6) quedan vacios.");
-
-        System.out.println("\n--- Estado final de la tabla hash abierta ---");
+        System.out.println("============= Estado Final de la Tabla (con Colisiones) =============");
         hashO.printTable();
 
-        System.out.println("\n1) Buscando clave 24...");
-        Register<String> found = hashO.search(24);
-        int[] location = hashO.locate(24);
-        if (found != null && location != null) {
-            System.out.println("  Encontrado: " + found);
-            System.out.println("  -> Se encuentra en el indice " + location[0] +
-                    " de la tabla, en el nodo numero " + (location[1] + 1) +
-                    " de su lista enlazada (posicion " + location[1] + " si se cuenta desde 0).");
-        } else {
-            System.out.println("  No encontrado");
+        System.out.println("============= 1. Busqueda y Localizacion de la Clave 24 =============");
+        Register<String> persona = hashO.search(24);
+        int[] coords = hashO.locate(24);
+        
+        if (persona != null && coords != null) {
+            System.out.println("Nombre asociado: " + persona.getValue());
+            System.out.println("Ubicacion en la tabla: Indice " + coords[0]);
+            System.out.println("Ubicacion en la cadena: Nodo " + coords[1] + " (0-based)");
         }
 
-        System.out.println("\n2) Eliminando clave 17...");
+        System.out.println("============= 2. Eliminacion de la Clave 17 =============");
         hashO.delete(17);
-
-        System.out.println("\n--- Tabla hash abierta despues de la eliminacion ---");
         hashO.printTable();
-
-        int remaining = hashO.chainSize(17 % 7);
-        System.out.println("\nLa cadena del indice " + (17 % 7) + " ahora tiene " +
-                remaining + " nodo(s) restante(s) (10, 24 y 31).");
+        System.out.println("Nodos remanentes en la cadena del indice 3: " + hashO.chainSize(3));
     }
 }
