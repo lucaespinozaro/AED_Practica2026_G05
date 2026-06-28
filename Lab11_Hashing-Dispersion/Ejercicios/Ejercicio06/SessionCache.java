@@ -1,11 +1,4 @@
-/**
- * Cache de sesiones implementado con una tabla hash de encadenamiento.
- * Usa una lista enlazada propia (nodos internos) en cada celda, sin
- * depender de java.util. La clave de hash es el token y se calcula con
- * token.hashCode().
- */
 public class SessionCache {
-
     private static class Node {
         Session session;
         Node next;
@@ -28,13 +21,12 @@ public class SessionCache {
         return Math.abs(token.hashCode()) % size;
     }
 
-    /** Registra una nueva sesion con tiempo de vida en milisegundos. */
     public void login(String token, String username, String role, long ttlMs) {
+        if (token == null) return;
         int index = hash(token);
         long expiresAt = System.currentTimeMillis() + ttlMs;
         Session nueva = new Session(token, username, role, expiresAt);
 
-        // Si el token ya tenia una sesion, se reemplaza (re-login)
         Node aux = table[index];
         while (aux != null) {
             if (aux.session.getToken().equals(token)) {
@@ -49,8 +41,8 @@ public class SessionCache {
         table[index] = nodo;
     }
 
-    /** Retorna la sesion si el token existe y no ha expirado; null en caso contrario. */
     public Session validate(String token) {
+        if (token == null) return null;
         int index = hash(token);
         Node aux = table[index];
         long now = System.currentTimeMillis();
@@ -66,8 +58,8 @@ public class SessionCache {
         return null;
     }
 
-    /** Elimina la sesion del cache (cierre de sesion explicito). */
     public void logout(String token) {
+        if (token == null) return;
         int index = hash(token);
         Node aux = table[index];
         Node prev = null;
@@ -85,7 +77,6 @@ public class SessionCache {
         }
     }
 
-    /** Recorre toda la tabla y elimina las sesiones cuyo expiresAt ya paso. */
     public void cleanExpired() {
         long now = System.currentTimeMillis();
         int removidas = 0;
@@ -111,7 +102,6 @@ public class SessionCache {
         System.out.println("cleanExpired(): se eliminaron " + removidas + " sesion(es) expirada(s).");
     }
 
-    /** Cuenta cuantas sesiones quedan almacenadas en el cache. */
     public int countActive() {
         int total = 0;
         for (int i = 0; i < size; i++) {
