@@ -1,7 +1,6 @@
 public class Ejercicio06 {
     public static void main(String[] args) {
         System.out.println("=== Ejercicio 6: Cache de sesiones con tabla hash (encadenamiento) ===\n");
-
         SessionCache cache = new SessionCache(7);
 
         System.out.println("1) Tres usuarios inician sesion:");
