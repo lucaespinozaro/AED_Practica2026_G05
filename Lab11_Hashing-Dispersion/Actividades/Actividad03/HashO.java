@@ -1,7 +1,7 @@
 public class HashO<E> {
     private ListLinked<Register<E>>[] table;
     private int size;
-    
+
     @SuppressWarnings("unchecked")
     public HashO(int size) {
         this.size = size;
